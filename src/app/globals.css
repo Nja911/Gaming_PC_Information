@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #f4f0e9;
+  --paper: #171614;
+  --dim: #716d66;
+  --dim-2: #aaa39a;
+  --line: #d9d2c8;
+  --line-soft: #e8e2d9;
+  --accent: #c84f35;
+  --accent-soft: #e9b8a9;
+  --copper: var(--accent);
+  --copper-soft: var(--accent-soft);
+  --signal: var(--accent);
+  --panel: #ebe5dc;
+  --panel-raised: #ded6ca;
+  --font-display: "Arial Narrow", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink); --color-paper: var(--paper); --color-dim: var(--dim); --color-dim-2: var(--dim-2);
+  --color-line: var(--line); --color-line-soft: var(--line-soft); --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft); --color-panel: var(--panel); --color-panel-raised: var(--panel-raised);
+  --color-copper: var(--accent); --color-copper-soft: var(--accent-soft); --color-signal: var(--accent);
+  --font-display: var(--font-display); --font-body: var(--font-body); --font-mono: var(--font-mono);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--paper); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: var(--accent); color: white; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.font-display { font-family: var(--font-display); letter-spacing: -.045em; }
+.font-mono, .readout { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.editorial-rule { height: 1px; background: var(--line); }
+.editorial-link { text-underline-offset: 5px; text-decoration-color: var(--accent-soft); }
+.editorial-link:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.feature-image { transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
+.group:hover .feature-image { transform: scale(1.035); }
+.hover-arrow { transition: transform 250ms ease; }
+.group:hover .hover-arrow { transform: translateX(5px); }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .feature-image, .group:hover .feature-image { transform: none; }
+}
