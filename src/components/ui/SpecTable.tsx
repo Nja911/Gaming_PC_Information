@@ -1,7 +1,7 @@
-import type { BuildComponent } from "@/types";
+import type { BuildComponent, Source } from "@/types";
 import { formatINR } from "@/lib/seo";
 
-export default function SpecTable({ components }: { components: BuildComponent[] }) {
+export default function SpecTable({ components, sources = [] }: { components: BuildComponent[]; sources?: Source[] }) {
   const total = components.reduce(
     (range, c) => {
       if (c.priceRangeINR) return [range[0] + c.priceRangeINR[0], range[1] + c.priceRangeINR[1]] as [number, number];
@@ -44,6 +44,15 @@ export default function SpecTable({ components }: { components: BuildComponent[]
                 )}
                 <div className="text-sm text-dim mt-1 max-w-md">{c.reason}</div>
                 {c.priceNote && <div className="text-xs text-dim mt-2 max-w-md">{c.priceNote}</div>}
+                {c.sourceIds && sources.length > 0 && (
+                  <div className="mt-2 text-xs text-dim">
+                    {c.sourceIds.map((id) => sources.find((source) => source.id === id)).filter(Boolean).map((source) => (
+                      <a key={source!.id} href={source!.url} target="_blank" rel="noreferrer" className="mr-3 underline editorial-link">
+                        {source!.name}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </td>
               <td className="py-4 text-right align-top readout text-paper whitespace-nowrap">
                 {formatPrice(c)}

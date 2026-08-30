@@ -6,7 +6,7 @@ import { builds } from "@/content/builds";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ComparisonLayout from "@/components/comparisons/ComparisonCard";
 import FAQ from "@/components/ui/FAQ";
-import { RelatedContent, LastUpdated } from "@/components/ui/Meta";
+import { RelatedContent, LastUpdated, Sources } from "@/components/ui/Meta";
 
 export function generateStaticParams() {
   return getAllComparisonSlugs().map((slug) => ({ slug }));
@@ -76,6 +76,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         )}
         <RelatedContent title="Related guides" links={comparison.relatedGuides} />
       </div>
+      <Sources sources={comparison.sources} />
     </div>
   );
 }

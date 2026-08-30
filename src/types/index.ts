@@ -31,6 +31,33 @@ export interface BuildComponent {
   priceRangeINR?: [number, number];
   condition?: "new" | "used" | "bundled";
   priceNote?: string;
+  sourceIds?: string[];
+}
+
+export type SourceType = "retailer" | "used-market" | "manufacturer" | "benchmark" | "editorial";
+
+export interface Source {
+  id: string;
+  name: string;
+  type: SourceType;
+  url: string;
+  accessedAt: string;
+  supports: string;
+}
+
+export interface PriceSnapshot {
+  low: number;
+  high: number;
+  currency: "INR";
+  condition: "new" | "used" | "bundled";
+  checkedAt: string;
+  sourceIds: string[];
+}
+
+export interface UpgradeStep {
+  timeframe: string;
+  priority: number;
+  action: string;
 }
 
 export interface RelatedLink {
@@ -59,6 +86,19 @@ export interface GamingPCBuild {
   relatedGuides: RelatedLink[];
   lastUpdated: string; // ISO date
   pricesChecked: string; // ISO date
+  budgetRange?: [number, number];
+  targetResolutions?: Resolution[];
+  targetFPS?: string;
+  audience?: string[];
+  useCases?: string[];
+  sacrifices?: string[];
+  whoShouldBuy?: string[];
+  whoShouldAvoid?: string[];
+  sources?: Source[];
+  pricing?: PriceSnapshot;
+  confidence?: "high" | "medium" | "low";
+  tested?: boolean;
+  upgradeSteps?: UpgradeStep[];
 }
 
 export interface ComponentCategory {
@@ -76,6 +116,7 @@ export interface ComponentCategory {
   relatedBuilds: string[];
   relatedGuides: RelatedLink[];
   lastUpdated: string;
+  sources?: Source[];
 }
 
 export interface Guide {
@@ -90,6 +131,7 @@ export interface Guide {
   relatedGuides: RelatedLink[];
   relatedComponents: RelatedLink[];
   lastUpdated: string;
+  sources?: Source[];
 }
 
 export interface ComparisonSide {
@@ -116,4 +158,5 @@ export interface Comparison {
   relatedBuilds: string[];
   relatedGuides: RelatedLink[];
   lastUpdated: string;
+  sources?: Source[];
 }

@@ -5,7 +5,7 @@ import { getComponentBySlug, getAllComponentSlugs } from "@/content/components";
 import { builds } from "@/content/builds";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FAQ from "@/components/ui/FAQ";
-import { RelatedContent, LastUpdated } from "@/components/ui/Meta";
+import { RelatedContent, LastUpdated, Sources } from "@/components/ui/Meta";
 import { formatINR } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -110,6 +110,7 @@ export default async function ComponentCategoryPage({ params }: { params: Promis
         )}
         <RelatedContent title="Related guides" links={category.relatedGuides} />
       </div>
+      <Sources sources={category.sources} />
     </div>
   );
 }

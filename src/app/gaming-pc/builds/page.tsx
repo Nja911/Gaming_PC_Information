@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = pageMetadata({
   title: "Gaming PC Builds by Budget — India",
   description:
-    "Browse current Indian gaming PC builds from ₹50,000 used-AM4 value rigs to ₹1,50,000 new-AM5 1440p and 4K builds, each with full component reasoning.",
+    "Browse researched Indian gaming PC builds from ₹40,000 esports rigs to ₹2,50,000 4K high-refresh systems, with current price evidence and full component reasoning.",
   path: "/gaming-pc/builds",
 });
 

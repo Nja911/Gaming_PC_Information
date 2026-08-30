@@ -11,7 +11,7 @@ import FAQ from "@/components/ui/FAQ";
 export const metadata: Metadata = pageMetadata({ title: "Best Gaming PC Builds for Every Budget in India", description: "Researched gaming PC builds, component guides and comparisons for every budget in India.", path: "/" });
 
 const faqs = [
-  { question: "What is the best gaming PC budget in India?", answer: "There isn't one right answer — ₹50,000 covers solid 1080p gaming, ₹75,000–1,00,000 is the used-AM4 value range, and ₹1,50,000+ moves to new AM5 parts and makes 4K realistic. Pick based on your target resolution and the games you play." },
+  { question: "What is the best gaming PC budget in India?", answer: "There isn't one right answer — ₹40,000–₹1,00,000 covers value-focused AM4 builds, while ₹1,25,000–₹2,50,000 moves into new AM5 systems for high-refresh 1440p and 4K. Pick based on your target resolution, games and tolerance for used parts." },
   { question: "Should I build my own PC or buy pre-built?", answer: "Building your own generally gets you better component quality for the same money and makes future upgrades easier. Pre-built can make sense when a whole-system warranty matters more than flexibility." },
   { question: "How often should I upgrade a gaming PC?", answer: "A well-chosen GPU tends to stay relevant for two to four years. The rest of the platform often lasts through more than one GPU upgrade when chosen with headroom." },
   { question: "Are the prices exact?", answer: "No. Build prices are approximate estimates and can change with retailer, region, stock and promotions. Check the linked product source before buying." },

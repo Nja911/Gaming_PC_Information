@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SpecTable from "@/components/ui/SpecTable";
 import PerformanceCard from "@/components/builds/PerformanceCard";
 import FAQ from "@/components/ui/FAQ";
-import { RelatedContent, LastUpdated, AuthorInfo } from "@/components/ui/Meta";
+import { RelatedContent, LastUpdated, AuthorInfo, Sources } from "@/components/ui/Meta";
 
 export function generateStaticParams() {
   return getAllBuildSlugs().map((budget) => ({ budget }));
@@ -59,6 +59,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
         <LastUpdated date={build.lastUpdated} pricesChecked={build.pricesChecked} />
         <AuthorInfo />
       </div>
+      {build.targetResolutions && <p className="mb-8 text-sm text-dim">Target: <span className="text-paper">{build.targetResolutions.join(" / ")}</span>{build.targetFPS && <> · {build.targetFPS}</>}</p>}
 
       {/* Quick summary + illustration */}
       <div className="mb-16 grid items-start gap-8 border-y border-line py-8 sm:grid-cols-[minmax(0,1fr)_18rem] sm:items-center">
@@ -68,8 +69,10 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
 
       <section className="mb-14">
         <h2 className="font-display text-2xl text-paper mb-6">Recommended components</h2>
-        <SpecTable components={build.components} />
+        <SpecTable components={build.components} sources={build.sources} />
       </section>
+
+      {build.sacrifices && <section className="mb-14"><h2 className="font-display text-2xl text-paper mb-4">What was sacrificed to stay within budget</h2><ul className="space-y-2 text-dim">{build.sacrifices.map((item) => <li key={item}>• {item}</li>)}</ul></section>}
 
       <section className="mb-14">
         <h2 className="font-display text-2xl text-paper mb-4">Why we chose these components</h2>
@@ -95,6 +98,10 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
           <p className="text-dim leading-relaxed">{build.ifBudgetChanges}</p>
         </section>
       </div>
+
+      {build.upgradeSteps && <section className="mb-14"><h2 className="font-display text-2xl text-paper mb-6">Upgrade priority</h2><div className="grid gap-3 sm:grid-cols-3">{build.upgradeSteps.map((step) => <div key={step.timeframe} className="border border-line rounded-md p-4"><p className="text-xs uppercase tracking-[.14em] text-accent">{step.timeframe}</p><p className="mt-2 text-sm text-dim">{step.action}</p></div>)}</div></section>}
+
+      {(build.whoShouldBuy || build.whoShouldAvoid) && <section className="mb-14 grid gap-8 sm:grid-cols-2"><div><h2 className="font-display text-xl text-paper mb-3">Who should buy it</h2><ul className="space-y-2 text-sm text-dim">{build.whoShouldBuy?.map((item) => <li key={item}>• {item}</li>)}</ul></div><div><h2 className="font-display text-xl text-paper mb-3">Who should avoid it</h2><ul className="space-y-2 text-sm text-dim">{build.whoShouldAvoid?.map((item) => <li key={item}>• {item}</li>)}</ul></div></section>}
 
       <section className="mb-14">
         <h2 className="font-display text-2xl text-paper mb-6">Alternative components</h2>
@@ -123,6 +130,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
         )}
         <RelatedContent title="Related guides" links={build.relatedGuides} />
       </div>
+      <Sources sources={build.sources} />
     </div>
   );
 }

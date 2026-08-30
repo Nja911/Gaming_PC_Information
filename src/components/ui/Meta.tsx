@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { RelatedLink } from "@/types";
+import type { RelatedLink, Source } from "@/types";
 
 export function ProsCons({ pros, cons }: { pros: string[]; cons: string[] }) {
   return (
@@ -73,5 +73,23 @@ export function AuthorInfo() {
       </Link>{" "}
       for how we build and evaluate recommendations.
     </p>
+  );
+}
+
+export function Sources({ sources = [] }: { sources?: Source[] }) {
+  if (!sources.length) return null;
+  return (
+    <section className="mt-12 border-t border-line pt-6">
+      <h2 className="font-display text-xl text-paper mb-3">Sources checked</h2>
+      <ul className="space-y-2 text-sm text-dim">
+        {sources.map((source) => (
+          <li key={source.id}>
+            <a href={source.url} target="_blank" rel="noreferrer" className="underline editorial-link">
+              {source.name}
+            </a>{" "}({source.type}, checked {source.accessedAt}) — {source.supports}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

@@ -5,7 +5,7 @@ import { getGuideBySlug, getAllGuideSlugs } from "@/content/guides";
 import { builds } from "@/content/builds";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FAQ from "@/components/ui/FAQ";
-import { RelatedContent, LastUpdated, AuthorInfo } from "@/components/ui/Meta";
+import { RelatedContent, LastUpdated, AuthorInfo, Sources } from "@/components/ui/Meta";
 
 export function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
@@ -80,6 +80,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         <RelatedContent title="Related components" links={guide.relatedComponents} />
         <RelatedContent title="Related guides" links={guide.relatedGuides} />
       </div>
+      <Sources sources={guide.sources} />
     </div>
   );
 }
