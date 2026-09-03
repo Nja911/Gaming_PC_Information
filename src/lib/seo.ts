@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import type { FAQItem } from "@/types";
 
 export const SITE_NAME = "Bench Verdict";
-export const SITE_URL = "https://www.benchverdict.in";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://gamingpc-guide.vercel.app";
 export const SITE_DESCRIPTION =
   "Independent gaming PC builds, component guides and comparisons for every budget in India.";
 export const DEFAULT_LOCALE = "en_IN";
@@ -59,7 +60,7 @@ export function absoluteUrl(path: string): string {
 }
 
 export function generateBreadcrumbSchema(
-  items: { name: string; path: string }[]
+  items: { name: string; path: string }[],
 ) {
   return {
     "@context": "https://schema.org",
