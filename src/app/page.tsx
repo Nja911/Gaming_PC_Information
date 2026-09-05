@@ -56,10 +56,9 @@ export default function HomePage() {
           <p className="mb-8 text-xs font-medium uppercase tracking-[.18em] text-accent">
             Independent research · India
           </p>
-          <h1 className="font-display max-w-xl text-[clamp(4.5rem,10vw,9.5rem)] font-semibold leading-[.78]">
-            Find your
-            <br />
-            gaming PC.
+          <h1 className="font-display max-w-xl text-[clamp(4.5rem,10vw,9.5rem)] font-semibold leading-[.86]">
+            <span className="block whitespace-nowrap">Find your</span>
+            <span className="block whitespace-nowrap">gaming PC.</span>
           </h1>
           <p className="mt-10 max-w-md text-lg leading-relaxed text-dim">
             Research-backed builds, component advice and buying guides for
