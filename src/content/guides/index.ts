@@ -5,7 +5,12 @@ import { guideRam } from "./how-much-ram-for-gaming";
 import { researchedGuides } from "./researched";
 import { marketSources } from "@/content/builds/researched";
 
-export const guides: Guide[] = [guide1080p, guide1440p, guideRam, ...researchedGuides].map((guide) => ({ ...guide, sources: guide.sources ?? marketSources }));
+const allGuides = [guide1080p, guide1440p, guideRam, ...researchedGuides];
+const uniqueGuides = allGuides.filter(
+  (guide, index, collection) => collection.findIndex((candidate) => candidate.slug === guide.slug) === index
+);
+
+export const guides: Guide[] = uniqueGuides.map((guide) => ({ ...guide, sources: guide.sources ?? marketSources }));
 
 export function getGuideBySlug(slug: string): Guide | undefined {
   return guides.find((g) => g.slug === slug);

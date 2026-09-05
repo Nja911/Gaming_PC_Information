@@ -19,6 +19,19 @@
   --font-mono: "SFMono-Regular", Consolas, monospace;
 }
 
+html[data-theme="dark"] {
+  --ink: #171614;
+  --paper: #f4f0e9;
+  --dim: #aaa39a;
+  --dim-2: #d1c8bc;
+  --line: #514b43;
+  --line-soft: #35312c;
+  --accent: #df7155;
+  --accent-soft: #bf8a7c;
+  --panel: #24211e;
+  --panel-raised: #302b26;
+}
+
 @theme inline {
   --color-ink: var(--ink); --color-paper: var(--paper); --color-dim: var(--dim); --color-dim-2: var(--dim-2);
   --color-line: var(--line); --color-line-soft: var(--line-soft); --color-accent: var(--accent);
@@ -29,8 +42,9 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--ink); color: var(--paper); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { background: var(--ink); color: var(--paper); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transition: background-color 180ms ease, color 180ms ease; }
 ::selection { background: var(--accent); color: white; }
+html[data-theme="dark"] ::selection { color: var(--ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .font-display { font-family: var(--font-display); letter-spacing: -.045em; }
 .font-mono, .readout { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
@@ -46,4 +60,5 @@ body { background: var(--ink); color: var(--paper); font-family: var(--font-body
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .feature-image, .group:hover .feature-image { transform: none; }
+  body { transition: none; }
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE_NAME } from "@/lib/seo";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 const NAV = [
   { label: "Builds", href: "/gaming-pc/builds" },
@@ -14,10 +15,15 @@ export default function Header() {
       <Link href="/" className="flex shrink-0 items-center gap-3 font-display text-xl font-semibold">
         <span aria-hidden="true" className="h-3 w-3 rounded-full bg-accent" />{SITE_NAME}
       </Link>
-      <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
-        {NAV.map((item) => <Link key={item.href} href={item.href} className="text-sm text-dim transition-colors hover:text-paper">{item.label}</Link>)}
-      </nav>
-      <Link href="/guides" className="text-sm font-medium underline editorial-link md:hidden">Explore</Link>
+      <div className="flex items-center gap-5">
+        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+          {NAV.map((item) => <Link key={item.href} href={item.href} className="text-sm text-dim transition-colors hover:text-paper">{item.label}</Link>)}
+        </nav>
+        <div className="flex items-center gap-4">
+          <Link href="/guides" className="text-sm font-medium underline editorial-link md:hidden">Explore</Link>
+          <ThemeToggle />
+        </div>
+      </div>
     </div>
   </header>;
 }
