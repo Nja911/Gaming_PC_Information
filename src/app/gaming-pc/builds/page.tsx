@@ -21,7 +21,7 @@ export default function BuildsHubPage() {
         together. Pick the budget closest to yours, then read the reasoning — the trade-offs matter as much as the
         parts list.
       </p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid gap-x-10 sm:grid-cols-2">
         {builds.map((build) => (
           <BuildCard key={build.slug} build={build} />
         ))}
