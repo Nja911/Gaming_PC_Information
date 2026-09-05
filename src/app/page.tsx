@@ -51,8 +51,8 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      <section className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-[90rem] items-end gap-8 px-5 pb-12 pt-16 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:pb-20 lg:pt-20">
-        <div className="relative z-10 pb-4 lg:pb-12">
+      <section className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-360 items-end gap-8 px-5 pb-12 pt-16 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:pb-20 lg:pt-20">
+        <div className="relative z-10 pb-4 lg:pb-12 lg:pr-8">
           <p className="mb-8 text-xs font-medium uppercase tracking-[.18em] text-accent">
             Independent research · India
           </p>
