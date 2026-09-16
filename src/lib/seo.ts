@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { FAQItem } from "@/types";
 
-export const SITE_NAME = "Bench Verdict";
+export const SITE_NAME = "gamingpc-guide";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://gamingpc-guide.vercel.app";
 export const SITE_DESCRIPTION =

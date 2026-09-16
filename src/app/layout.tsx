@@ -24,10 +24,10 @@ const themeInitScript = `(() => {
     const stored = localStorage.getItem("gaming-pc-theme");
     const theme = stored === "light" || stored === "dark"
       ? stored
-      : "dark";
+      : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     document.documentElement.dataset.theme = theme;
   } catch {
-    document.documentElement.dataset.theme = "dark";
+    document.documentElement.dataset.theme = "light";
   }
 })();`;
 

@@ -46,17 +46,19 @@ export default function ThemeToggle() {
   };
 
   return (
-    <SwitchMode
-      isDark={isDark}
-      onToggle={handleToggle}
-      width={55}
-      height={26}
-      darkColor="var(--ink)"
-      lightColor="var(--ink)"
-      knobDarkColor="var(--panel-raised)"
-      knobLightColor="var(--panel-raised)"
-      borderDarkColor="var(--line)"
-      borderLightColor="var(--line)"
-    />
+    <span className="inline-flex min-h-11 min-w-11 items-center justify-center">
+      <SwitchMode
+        isDark={isDark}
+        onToggle={handleToggle}
+        width={55}
+        height={26}
+        darkColor="var(--ink)"
+        lightColor="var(--ink)"
+        knobDarkColor="var(--panel-raised)"
+        knobLightColor="var(--panel-raised)"
+        borderDarkColor="var(--line)"
+        borderLightColor="var(--line)"
+      />
+    </span>
   );
 }
