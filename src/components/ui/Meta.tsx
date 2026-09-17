@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { RelatedLink, Source } from "@/types";
+import { SITE_NAME } from "@/lib/seo";
 
 export function ProsCons({ pros, cons }: { pros: string[]; cons: string[] }) {
   return (
@@ -67,7 +68,7 @@ export function LastUpdated({ date, pricesChecked }: { date: string; pricesCheck
 export function AuthorInfo() {
   return (
     <p className="text-sm text-dim">
-      Reviewed by the <span className="text-paper">Bench Verdict editorial team</span> — see our{" "}
+      Reviewed by the <span className="text-paper">{SITE_NAME} editorial team</span>. See our{" "}
       <Link href="/methodology" className="text-copper hover:underline">
         methodology
       </Link>{" "}
@@ -86,7 +87,7 @@ export function Sources({ sources = [] }: { sources?: Source[] }) {
           <li key={source.id}>
             <a href={source.url} target="_blank" rel="noreferrer" className="underline editorial-link">
               {source.name}
-            </a>{" "}({source.type}, checked {source.accessedAt}) — {source.supports}
+            </a>{" "}({source.type}, checked {source.accessedAt}). {source.supports}
           </li>
         ))}
       </ul>

@@ -8,7 +8,7 @@ import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, generateWebSiteSchema, jsonLd } 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Gaming PC Builds & Buying Guides for India`,
+    default: `${SITE_NAME}: Gaming PC Builds & Buying Guides for India`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,

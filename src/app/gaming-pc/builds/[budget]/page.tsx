@@ -64,7 +64,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
       {/* Quick summary + illustration */}
       <div className="mb-16 grid items-start gap-8 border-y border-line py-8 sm:grid-cols-[minmax(0,1fr)_18rem] sm:items-center">
         <div className="min-w-0"><p className="mb-3 text-xs uppercase tracking-[.15em] text-accent">Build brief</p><p className="leading-relaxed">{build.summary}</p><p className="readout mt-6 text-3xl text-accent">{formatINR(build.budget)}</p></div>
-        <Image src="/images/gaming-pc-hero.png" alt="A gaming PC tower for this build" width={768} height={512} className="aspect-[3/2] h-auto w-full object-cover" />
+        <Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower used to illustrate a gaming PC build" width={768} height={512} className="aspect-[3/2] h-auto w-full object-cover" />
       </div>
 
       <section className="mb-14">
