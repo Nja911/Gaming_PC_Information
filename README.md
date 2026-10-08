@@ -129,6 +129,23 @@ data model (`BuildComponent.priceINR`) is a plain optional number, so wiring
 up a real price feed later is additive — it doesn't require restructuring the
 content model.
 
+### Refreshing new-part recommendations
+
+The optional snapshot updater uses PCPartPicker's India catalogue and changes
+only new-part recommendations. Used-part selections and prices remain in the
+typed build content.
+
+```bash
+python -m venv .venv
+.venv\Scripts\python -m pip install -r scripts/requirements-pricing.txt
+.venv\Scripts\python scripts/fetch_pcpartpicker_prices.py
+```
+
+The updater writes `src/content/pricing/latest.json` atomically. If fetching or
+matching fails, the previous snapshot is preserved. Build URLs remain anchored
+to their original tier, while the displayed current required budget is rounded
+up to the nearest ₹5,000.
+
 ## Local development
 
 ```bash

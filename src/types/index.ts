@@ -32,6 +32,40 @@ export interface BuildComponent {
   condition?: "new" | "used" | "bundled";
   priceNote?: string;
   sourceIds?: string[];
+  livePrice?: {
+    checkedAt: string;
+    sourceName: string;
+    sourceUrl?: string | null;
+  };
+}
+
+export interface LiveComponentPrice {
+  candidateId: string;
+  name: string;
+  low: number;
+  high: number;
+  matchedName: string;
+  sourceUrl?: string | null;
+  sourceName: string;
+}
+
+export interface BuildPriceRecommendation {
+  requiredBudgetINR: number;
+  totalINR: [number, number];
+  components: Partial<Record<BuildComponent["category"], LiveComponentPrice>>;
+}
+
+export interface PricingSnapshot {
+  schemaVersion: 1;
+  source: {
+    name: string;
+    region: string;
+    fallbackRegion?: string;
+    usdToInr: number;
+  };
+  checkedAt: string;
+  builds: Record<string, BuildPriceRecommendation>;
+  unresolvedBuilds?: string[];
 }
 
 export type SourceType = "retailer" | "used-market" | "manufacturer" | "benchmark" | "editorial";

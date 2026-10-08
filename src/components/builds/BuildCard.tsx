@@ -1,9 +1,11 @@
 import Link from "next/link";
 import type { GamingPCBuild } from "@/types";
 import { formatINR } from "@/lib/seo";
+import { resolveBuild } from "@/lib/pricing";
 
 export default function BuildCard({ build }: { build: GamingPCBuild }) {
-  const gpu = build.components.find((c) => c.category === "GPU");
+  const pricedBuild = resolveBuild(build);
+  const gpu = pricedBuild.components.find((c) => c.category === "GPU");
 
   return (
     <Link href={`/gaming-pc/builds/${build.slug}`} className="group block border-t border-line py-6 transition-colors hover:border-accent">
@@ -16,7 +18,7 @@ export default function BuildCard({ build }: { build: GamingPCBuild }) {
           <p className="mt-3 text-sm leading-relaxed text-dim">{gpu?.name}</p>
         </div>
         <span className="readout whitespace-nowrap text-left text-xl text-accent sm:pt-1 sm:text-right">
-          {formatINR(build.budget)} <span className="text-sm" aria-hidden="true">↗</span>
+          {formatINR(pricedBuild.currentBudgetINR)} <span className="text-sm" aria-hidden="true">↗</span>
         </span>
       </div>
     </Link>

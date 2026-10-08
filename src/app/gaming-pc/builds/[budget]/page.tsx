@@ -8,6 +8,7 @@ import SpecTable from "@/components/ui/SpecTable";
 import PerformanceCard from "@/components/builds/PerformanceCard";
 import FAQ from "@/components/ui/FAQ";
 import { RelatedContent, LastUpdated, AuthorInfo, Sources } from "@/components/ui/Meta";
+import { resolveBuild } from "@/lib/pricing";
 
 export function generateStaticParams() {
   return getAllBuildSlugs().map((budget) => ({ budget }));
@@ -28,8 +29,9 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
   const { budget } = await params;
   const build = getBuildBySlug(budget);
   if (!build) notFound();
+  const pricedBuild = resolveBuild(build);
 
-  const related = builds.filter((b) => build.relatedBuilds.includes(b.slug));
+  const related = builds.filter((b) => build.relatedBuilds.includes(b.slug)).map(resolveBuild);
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
@@ -49,27 +51,32 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
       <Breadcrumbs
         items={[
           { name: "Gaming PC Builds", path: "/gaming-pc/builds" },
-          { name: formatINR(build.budget), path: `/gaming-pc/builds/${build.slug}` },
+          { name: formatINR(pricedBuild.currentBudgetINR), path: `/gaming-pc/builds/${build.slug}` },
         ]}
       />
 
       <h1 className="font-display mt-8 mb-5 max-w-4xl text-5xl leading-[.9] sm:text-7xl">{build.title}</h1>
-      <p className="text-dim text-lg leading-relaxed mb-6">{build.intro}</p>
+      <p className="text-dim text-lg leading-relaxed mb-6">{pricedBuild.intro}</p>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-10">
-        <LastUpdated date={build.lastUpdated} pricesChecked={build.pricesChecked} />
+        <LastUpdated date={pricedBuild.lastUpdated} pricesChecked={pricedBuild.pricesChecked} />
         <AuthorInfo />
       </div>
-      {build.targetResolutions && <p className="mb-8 text-sm text-dim">Target: <span className="text-paper">{build.targetResolutions.join(" / ")}</span>{build.targetFPS && <> · {build.targetFPS}</>}</p>}
+      <p className="mb-8 text-xs text-dim">
+        {pricedBuild.hasLivePricing
+          ? "New-part prices use the latest successful PCPartPicker snapshot; used-part estimates remain unchanged."
+          : "No safe PCPartPicker match is available for this tier yet; existing editorial estimates are shown."}
+      </p>
+      {pricedBuild.targetResolutions && <p className="mb-8 text-sm text-dim">Target: <span className="text-paper">{pricedBuild.targetResolutions.join(" / ")}</span>{pricedBuild.targetFPS && <> · {pricedBuild.targetFPS}</>}</p>}
 
       {/* Quick summary + illustration */}
       <div className="mb-16 grid items-start gap-8 border-y border-line py-8 sm:grid-cols-[minmax(0,1fr)_18rem] sm:items-center">
-        <div className="min-w-0"><p className="mb-3 text-xs uppercase tracking-[.15em] text-accent">Build brief</p><p className="leading-relaxed">{build.summary}</p><p className="readout mt-6 text-3xl text-accent">{formatINR(build.budget)}</p></div>
+        <div className="min-w-0"><p className="mb-3 text-xs uppercase tracking-[.15em] text-accent">Build brief</p><p className="leading-relaxed">{pricedBuild.summary}</p><p className="mt-6 text-xs uppercase tracking-[.14em] text-dim">Current required budget</p><p className="readout mt-1 text-3xl text-accent">{formatINR(pricedBuild.currentBudgetINR)}</p></div>
         <Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower used to illustrate a gaming PC build" width={768} height={512} className="aspect-[3/2] h-auto w-full object-cover" />
       </div>
 
       <section className="mb-14">
         <h2 className="font-display text-2xl text-paper mb-6">Recommended components</h2>
-        <SpecTable components={build.components} sources={build.sources} />
+        <SpecTable components={pricedBuild.components} sources={pricedBuild.sources} />
       </section>
 
       {build.sacrifices && <section className="mb-14"><h2 className="font-display text-2xl text-paper mb-4">What was sacrificed to stay within budget</h2><ul className="space-y-2 text-dim">{build.sacrifices.map((item) => <li key={item}>• {item}</li>)}</ul></section>}
@@ -125,7 +132,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
         {related.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={related.map((b) => ({ label: `${formatINR(b.budget)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={related.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={build.relatedGuides} />

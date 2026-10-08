@@ -7,6 +7,7 @@ import { componentCategories } from "@/content/components";
 import { guides } from "@/content/guides";
 import { comparisons } from "@/content/comparisons";
 import FAQ from "@/components/ui/FAQ";
+import { resolveBuild } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -39,8 +40,9 @@ function cpuFor(build: (typeof builds)[number]) {
 }
 
 export default function HomePage() {
-  const leadBuild = builds[4] ?? builds[0];
-  const secondBuild = builds[1] ?? builds[0];
+  const pricedBuilds = builds.map(resolveBuild);
+  const leadBuild = pricedBuilds[4] ?? pricedBuilds[0];
+  const secondBuild = pricedBuilds[1] ?? pricedBuilds[0];
 
   return <>
     <section className="mx-auto grid max-w-[90rem] items-end gap-10 px-5 pb-12 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[.9fr_1.1fr]">
@@ -66,9 +68,9 @@ export default function HomePage() {
           <p className="mt-7 max-w-xs text-sm leading-relaxed text-dim">Choose the budget first. Each row leads to a complete parts list with the trade-offs made visible.</p>
         </div>
         <div className="divide-y divide-line border-t border-line">
-          {builds.map((build, index) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="index-row group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-2 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_10rem_auto] sm:gap-5">
+          {pricedBuilds.map((build, index) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="index-row group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-2 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_10rem_auto] sm:gap-5">
             <span className="index-number font-mono text-xs text-dim">{String(index + 1).padStart(2, "0")}</span>
-            <span className="font-display min-w-0 text-3xl transition-colors group-hover:text-accent sm:text-5xl">{formatINR(build.budget)}</span>
+            <span className="min-w-0"><span className="block font-display text-3xl transition-colors group-hover:text-accent sm:text-5xl">{formatINR(build.currentBudgetINR)}</span>{build.currentBudgetINR !== build.budget && <span className="mt-1 block text-xs text-dim">{formatINR(build.budget)} tier</span>}</span>
             <span className="hidden text-xs uppercase tracking-[.14em] text-dim sm:block">{build.targetResolutions?.join(" / ") ?? build.targetResolution}</span>
             <span className="text-lg text-accent" aria-hidden="true">↗</span>
           </Link>)}
@@ -87,13 +89,13 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col justify-between gap-10">
           <div><p className="section-kicker mb-4">{leadBuild.targetResolutions?.join(" / ")}</p><h3 className="font-display text-4xl leading-[.92] sm:text-6xl">{leadBuild.title.replace("Best Gaming PC Under ", "")}</h3><p className="mt-6 max-w-md text-sm leading-relaxed text-dim">{leadBuild.intro}</p></div>
-          <div className="grid grid-cols-2 gap-5"><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">GPU</span><span className="mt-2 block text-sm leading-snug">{gpuFor(leadBuild)}</span></div><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">CPU</span><span className="mt-2 block text-sm leading-snug">{cpuFor(leadBuild)}</span></div><div className="product-stat col-span-2"><span className="block text-xs uppercase tracking-[.12em] text-dim">Build estimate</span><span className="readout mt-2 block text-3xl text-accent">{formatINR(leadBuild.budget)}</span></div></div>
+          <div className="grid grid-cols-2 gap-5"><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">GPU</span><span className="mt-2 block text-sm leading-snug">{gpuFor(leadBuild)}</span></div><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">CPU</span><span className="mt-2 block text-sm leading-snug">{cpuFor(leadBuild)}</span></div><div className="product-stat col-span-2"><span className="block text-xs uppercase tracking-[.12em] text-dim">Current required budget</span><span className="readout mt-2 block text-3xl text-accent">{formatINR(leadBuild.currentBudgetINR)}</span></div></div>
         </div>
       </Link>
       <div className="mt-16 grid gap-8 border-t border-line pt-6 md:grid-cols-2">
-        {[secondBuild, builds[6] ?? builds[2]].map((build) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="group grid gap-5 sm:grid-cols-[10rem_1fr]">
+        {[secondBuild, pricedBuilds[6] ?? pricedBuilds[2]].map((build) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="group grid gap-5 sm:grid-cols-[10rem_1fr]">
           <div className="product-frame relative aspect-square overflow-hidden"><Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower with a glass side panel" fill className="feature-image object-cover" sizes="(max-width: 640px) 100vw, 10rem" /></div>
-          <div><p className="section-kicker mb-3">{build.targetResolution} · {formatINR(build.budget)}</p><h3 className="font-display text-3xl leading-[.92] transition-colors group-hover:text-accent">{build.title.replace("Best Gaming PC Under ", "")}</h3><p className="mt-4 text-sm leading-relaxed text-dim">{gpuFor(build)}</p></div>
+          <div><p className="section-kicker mb-3">{build.targetResolution} · {formatINR(build.currentBudgetINR)}</p><h3 className="font-display text-3xl leading-[.92] transition-colors group-hover:text-accent">{build.title.replace("Best Gaming PC Under ", "")}</h3><p className="mt-4 text-sm leading-relaxed text-dim">{gpuFor(build)}</p></div>
         </Link>)}
       </div>
     </section>

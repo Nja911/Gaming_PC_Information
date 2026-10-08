@@ -1,0 +1,42 @@
+{
+  "candidates": [
+    { "id": "storage-500-nvme", "category": "Storage", "query": ["500GB", "NVMe"], "name": "500GB NVMe SSD", "performance": 1, "platform": "any" },
+    { "id": "storage-1tb-nvme", "category": "Storage", "query": ["1TB", "NVMe"], "name": "1TB NVMe SSD", "performance": 2, "platform": "any" },
+    { "id": "storage-2tb-nvme", "category": "Storage", "query": ["2TB", "NVMe"], "name": "2TB NVMe SSD", "performance": 3, "platform": "any" },
+    { "id": "psu-500-bronze", "category": "PSU", "query": ["500W", "Bronze"], "name": "500W 80+ Bronze PSU", "performance": 1, "wattage": 500 },
+    { "id": "psu-650-bronze", "category": "PSU", "query": ["650W", "Bronze"], "name": "650W 80+ Bronze PSU", "performance": 2, "wattage": 650 },
+    { "id": "psu-750-gold", "category": "PSU", "query": ["750W", "Gold"], "name": "750W 80+ Gold PSU", "performance": 3, "wattage": 750 },
+    { "id": "psu-850-gold", "category": "PSU", "query": ["850W", "Gold"], "name": "850W 80+ Gold PSU", "performance": 4, "wattage": 850 },
+    { "id": "psu-1000-gold", "category": "PSU", "query": ["1000W", "Gold"], "name": "1000W 80+ Gold PSU", "performance": 5, "wattage": 1000 },
+    { "id": "case-airflow-mid", "category": "Case", "query": ["ATX"], "name": "Airflow mid-tower case", "performance": 1, "formFactor": "ATX" },
+    { "id": "case-airflow-high", "category": "Case", "query": ["ATX"], "name": "High-airflow mid-tower case", "performance": 2, "formFactor": "ATX" },
+    { "id": "case-premium-airflow", "category": "Case", "query": ["ATX", "airflow"], "name": "Premium high-airflow case", "performance": 3, "formFactor": "ATX" },
+    { "id": "cooler-tower", "category": "CPU Cooler", "query": ["tower", "air"], "name": "Tower air cooler", "performance": 1, "platform": "any" },
+    { "id": "cooler-240-aio", "category": "CPU Cooler", "query": ["240mm", "liquid"], "name": "240mm AIO cooler", "performance": 2, "platform": "any" },
+    { "id": "cooler-360-aio", "category": "CPU Cooler", "query": ["360mm", "liquid"], "name": "360mm AIO cooler", "performance": 3, "platform": "any" },
+    { "id": "cpu-7600", "category": "CPU", "query": ["AMD", "7600"], "name": "AMD Ryzen 5 7600", "performance": 2, "platform": "AM5" },
+    { "id": "cpu-9800x3d", "category": "CPU", "query": ["AMD", "9800"], "name": "AMD Ryzen 7 9800X3D", "performance": 4, "platform": "AM5" },
+    { "id": "gpu-9070", "category": "GPU", "query": ["9070"], "name": "Radeon RX 9070", "performance": 3, "minPsu": 650 },
+    { "id": "gpu-5070", "category": "GPU", "query": ["5070"], "name": "GeForce RTX 5070", "performance": 3, "minPsu": 650 },
+    { "id": "gpu-9070xt", "category": "GPU", "query": ["9070", "XT"], "name": "Radeon RX 9070 XT", "performance": 4, "minPsu": 750 },
+    { "id": "gpu-5070ti", "category": "GPU", "query": ["5070", "Ti"], "name": "GeForce RTX 5070 Ti", "performance": 4, "minPsu": 750 },
+    { "id": "gpu-5080", "category": "GPU", "query": ["5080"], "name": "GeForce RTX 5080", "performance": 5, "minPsu": 850 },
+    { "id": "gpu-5090", "category": "GPU", "query": ["5090"], "name": "GeForce RTX 5090", "performance": 6, "minPsu": 1000 },
+    { "id": "motherboard-b650", "category": "Motherboard", "query": ["B650"], "name": "B650 AM5 motherboard", "performance": 2, "platform": "AM5", "memoryType": "DDR5" },
+    { "id": "motherboard-x870", "category": "Motherboard", "query": ["X870"], "name": "X870 AM5 motherboard", "performance": 3, "platform": "AM5", "memoryType": "DDR5" },
+    { "id": "motherboard-x870e", "category": "Motherboard", "query": ["X870E"], "name": "X870E AM5 motherboard", "performance": 4, "platform": "AM5", "memoryType": "DDR5" },
+    { "id": "ram-32-ddr5", "category": "RAM", "query": ["32GB", "DDR5", "6000"], "name": "32GB DDR5-6000", "performance": 2, "memoryType": "DDR5" },
+    { "id": "ram-64-ddr5", "category": "RAM", "query": ["64GB", "DDR5", "6000"], "name": "64GB DDR5-6000", "performance": 3, "memoryType": "DDR5" }
+  ],
+  "builds": {
+    "40000": { "fixedTotalINR": [21000, 31000], "platform": "AM4", "memoryType": "DDR4", "minPsu": 500, "allowed": { "Storage": ["storage-500-nvme"], "PSU": ["psu-500-bronze"], "Case": ["case-airflow-mid"], "CPU Cooler": ["cooler-tower"] } },
+    "50000": { "fixedTotalINR": [28000, 38000], "platform": "AM4", "memoryType": "DDR4", "minPsu": 500, "allowed": { "Storage": ["storage-500-nvme", "storage-1tb-nvme"], "PSU": ["psu-500-bronze", "psu-650-bronze"], "Case": ["case-airflow-mid", "case-airflow-high"], "CPU Cooler": [] } },
+    "60000": { "fixedTotalINR": [35000, 47000], "platform": "AM4", "memoryType": "DDR4", "minPsu": 550, "allowed": { "Storage": ["storage-1tb-nvme"], "PSU": ["psu-650-bronze"], "Case": ["case-airflow-mid", "case-airflow-high"], "CPU Cooler": [] } },
+    "75000": { "fixedTotalINR": [37000, 51000], "platform": "AM4", "memoryType": "DDR4", "minPsu": 550, "allowed": { "Storage": ["storage-1tb-nvme"], "PSU": ["psu-650-bronze"], "Case": ["case-airflow-mid", "case-airflow-high"], "CPU Cooler": [] } },
+    "100000": { "fixedTotalINR": [63500, 85000], "platform": "AM4", "memoryType": "DDR4", "minPsu": 650, "allowed": { "Storage": ["storage-1tb-nvme", "storage-2tb-nvme"], "PSU": ["psu-650-bronze", "psu-750-gold"], "Case": ["case-airflow-high", "case-premium-airflow"], "CPU Cooler": ["cooler-tower", "cooler-240-aio"] } },
+    "125000": { "fixedTotalINR": [0, 0], "platform": "AM5", "memoryType": "DDR5", "minPsu": 650, "allowed": { "CPU": ["cpu-7600"], "GPU": ["gpu-9070", "gpu-5070"], "Motherboard": ["motherboard-b650", "motherboard-x870"], "RAM": ["ram-32-ddr5"], "Storage": ["storage-1tb-nvme"], "PSU": ["psu-750-gold"], "Case": ["case-airflow-high"], "CPU Cooler": ["cooler-tower"] } },
+    "150000": { "fixedTotalINR": [0, 0], "platform": "AM5", "memoryType": "DDR5", "minPsu": 750, "allowed": { "CPU": ["cpu-9800x3d"], "GPU": ["gpu-9070xt", "gpu-5070ti"], "Motherboard": ["motherboard-b650", "motherboard-x870"], "RAM": ["ram-32-ddr5"], "Storage": ["storage-1tb-nvme"], "PSU": ["psu-850-gold"], "Case": ["case-airflow-high", "case-premium-airflow"], "CPU Cooler": ["cooler-tower", "cooler-240-aio"] } },
+    "200000": { "fixedTotalINR": [0, 0], "platform": "AM5", "memoryType": "DDR5", "minPsu": 850, "allowed": { "CPU": ["cpu-9800x3d"], "GPU": ["gpu-5080", "gpu-9070xt"], "Motherboard": ["motherboard-x870", "motherboard-x870e"], "RAM": ["ram-64-ddr5"], "Storage": ["storage-2tb-nvme"], "PSU": ["psu-850-gold"], "Case": ["case-premium-airflow"], "CPU Cooler": ["cooler-240-aio", "cooler-360-aio"] } },
+    "250000": { "fixedTotalINR": [0, 0], "platform": "AM5", "memoryType": "DDR5", "minPsu": 1000, "allowed": { "CPU": ["cpu-9800x3d"], "GPU": ["gpu-5090", "gpu-5080"], "Motherboard": ["motherboard-x870e"], "RAM": ["ram-64-ddr5"], "Storage": ["storage-2tb-nvme"], "PSU": ["psu-1000-gold"], "Case": ["case-premium-airflow"], "CPU Cooler": ["cooler-360-aio"] } }
+  }
+}

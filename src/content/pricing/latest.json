@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "PCPartPicker",
+    "region": "in",
+    "fallbackRegion": "us",
+    "usdToInr": 95
+  },
+  "checkedAt": "2026-10-08T18:06:12+00:00",
+  "builds": {
+    "50000": {
+      "requiredBudgetINR": 60000,
+      "totalINR": [
+        46906,
+        56906
+      ],
+      "components": {
+        "Storage": {
+          "candidateId": "storage-500-nvme",
+          "name": "500GB NVMe SSD",
+          "low": 10980,
+          "high": 10980,
+          "matchedName": "Western Digital Black NVMe",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "PSU": {
+          "candidateId": "psu-650-bronze",
+          "name": "650W 80+ Bronze PSU",
+          "low": 5499,
+          "high": 5499,
+          "matchedName": "Gigabyte P-B",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "Case": {
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 2427,
+          "high": 2427,
+          "matchedName": "Deepcool MATREXX 30",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        }
+      }
+    },
+    "60000": {
+      "requiredBudgetINR": 80000,
+      "totalINR": [
+        64560,
+        76560
+      ],
+      "components": {
+        "Storage": {
+          "candidateId": "storage-1tb-nvme",
+          "name": "1TB NVMe SSD",
+          "low": 21634,
+          "high": 21634,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "PSU": {
+          "candidateId": "psu-650-bronze",
+          "name": "650W 80+ Bronze PSU",
+          "low": 5499,
+          "high": 5499,
+          "matchedName": "Gigabyte P-B",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "Case": {
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 2427,
+          "high": 2427,
+          "matchedName": "Deepcool MATREXX 30",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        }
+      }
+    },
+    "75000": {
+      "requiredBudgetINR": 85000,
+      "totalINR": [
+        66560,
+        80560
+      ],
+      "components": {
+        "Storage": {
+          "candidateId": "storage-1tb-nvme",
+          "name": "1TB NVMe SSD",
+          "low": 21634,
+          "high": 21634,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "PSU": {
+          "candidateId": "psu-650-bronze",
+          "name": "650W 80+ Bronze PSU",
+          "low": 5499,
+          "high": 5499,
+          "matchedName": "Gigabyte P-B",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "Case": {
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 2427,
+          "high": 2427,
+          "matchedName": "Deepcool MATREXX 30",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        }
+      }
+    },
+    "100000": {
+      "requiredBudgetINR": 125000,
+      "totalINR": [
+        102245,
+        123745
+      ],
+      "components": {
+        "Storage": {
+          "candidateId": "storage-1tb-nvme",
+          "name": "1TB NVMe SSD",
+          "low": 21634,
+          "high": 21634,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "PSU": {
+          "candidateId": "psu-750-gold",
+          "name": "750W 80+ Gold PSU",
+          "low": 7289,
+          "high": 7289,
+          "matchedName": "Gigabyte P GM",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "Case": {
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 2427,
+          "high": 2427,
+          "matchedName": "Deepcool MATREXX 30",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-240-aio",
+          "name": "240mm AIO cooler",
+          "low": 7395,
+          "high": 7395,
+          "matchedName": "Cooler Master MasterLiquid 240",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India"
+        }
+      }
+    }
+  },
+  "unresolvedBuilds": [
+    "40000",
+    "125000",
+    "150000",
+    "200000",
+    "250000"
+  ]
+}

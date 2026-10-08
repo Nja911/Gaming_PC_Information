@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { pageMetadata, generateArticleSchema, jsonLd, formatINR } from "@/lib/seo";
 import { getComparisonBySlug, getAllComparisonSlugs } from "@/content/comparisons";
 import { builds } from "@/content/builds";
+import { resolveBuild } from "@/lib/pricing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ComparisonLayout from "@/components/comparisons/ComparisonCard";
 import FAQ from "@/components/ui/FAQ";
@@ -28,7 +29,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
   const comparison = getComparisonBySlug(slug);
   if (!comparison) notFound();
 
-  const relatedBuilds = builds.filter((b) => comparison.relatedBuilds.includes(b.slug));
+  const relatedBuilds = builds.filter((b) => comparison.relatedBuilds.includes(b.slug)).map(resolveBuild);
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
@@ -71,7 +72,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         {relatedBuilds.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.budget)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={comparison.relatedGuides} />

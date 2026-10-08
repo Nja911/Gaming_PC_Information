@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { pageMetadata, generateArticleSchema, jsonLd } from "@/lib/seo";
 import { getComponentBySlug, getAllComponentSlugs } from "@/content/components";
 import { builds } from "@/content/builds";
+import { resolveBuild } from "@/lib/pricing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FAQ from "@/components/ui/FAQ";
 import { RelatedContent, LastUpdated, Sources } from "@/components/ui/Meta";
@@ -28,7 +29,7 @@ export default async function ComponentCategoryPage({ params }: { params: Promis
   const category = getComponentBySlug(slug);
   if (!category) notFound();
 
-  const relatedBuilds = builds.filter((b) => category.relatedBuilds.includes(b.slug));
+  const relatedBuilds = builds.filter((b) => category.relatedBuilds.includes(b.slug)).map(resolveBuild);
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
@@ -105,7 +106,7 @@ export default async function ComponentCategoryPage({ params }: { params: Promis
         {relatedBuilds.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.budget)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={category.relatedGuides} />

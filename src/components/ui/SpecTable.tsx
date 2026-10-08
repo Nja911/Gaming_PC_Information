@@ -53,6 +53,12 @@ export default function SpecTable({ components, sources = [] }: { components: Bu
                     ))}
                   </div>
                 )}
+                {c.livePrice && (
+                  <div className="mt-2 text-xs text-accent">
+                    {c.livePrice.sourceUrl ? <a href={c.livePrice.sourceUrl} target="_blank" rel="noreferrer" className="underline editorial-link">{c.livePrice.sourceName}</a> : c.livePrice.sourceName}
+                    {c.livePrice.checkedAt && ` · checked ${new Date(c.livePrice.checkedAt).toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" })}`}
+                  </div>
+                )}
               </td>
               <td className="py-4 text-right align-top readout text-paper whitespace-nowrap">
                 {formatPrice(c)}

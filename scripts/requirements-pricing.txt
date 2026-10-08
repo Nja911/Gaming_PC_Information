@@ -1,0 +1,2 @@
+pcpartpicker==2.2.2
+legacy-cgi; python_version >= "3.13"
