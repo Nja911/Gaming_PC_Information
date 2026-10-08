@@ -157,7 +157,8 @@ published above the band. Pressing Ctrl+C also preserves the previous snapshot.
 The manually supplied rough fallback prices are stored in
 `src/content/pricing/manual-overrides.json`. They are used only when India and
 optional USD PCPartPicker matches have no usable non-zero price; live matches
-take priority.
+take priority. A single manual value is displayed as a rounded ±5% estimate;
+multiple PCPartPicker listings use their observed low/high prices.
 
 ## Local development
 

@@ -53,7 +53,8 @@ class PricingUpdaterTests(unittest.TestCase):
     def test_manual_price_is_new_and_keeps_source(self):
         candidate = {"id": "cpu", "name": "AMD Ryzen 7 9800X3D"}
         price = manual_price(candidate, {"cpu": {"priceINR": 46999, "sourceUrl": "https://example.com"}})
-        self.assertEqual(price["low"], 46999)
+        self.assertLess(price["low"], 46999)
+        self.assertGreater(price["high"], 46999)
         self.assertEqual(price["condition"], "new")
         self.assertEqual(price["sourceUrl"], "https://example.com")
 

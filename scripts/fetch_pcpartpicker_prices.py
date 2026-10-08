@@ -10,12 +10,13 @@ import re
 import sys
 import tempfile
 from datetime import datetime, timezone
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_DOWN, ROUND_HALF_UP, ROUND_UP
 from pathlib import Path
 from typing import Any
 
 USD_TO_INR = Decimal("95")
 USED_FACTOR = Decimal("0.5")
+ESTIMATE_MARGIN = Decimal("0.05")
 CATEGORY_TYPES = {
     "CPU": "cpu",
     "GPU": "video-card",
@@ -103,6 +104,13 @@ def product_url(item: dict[str, Any]) -> str | None:
     return None
 
 
+def estimated_range(amount: int) -> tuple[int, int]:
+    value = Decimal(amount)
+    low = int((value * (Decimal("1") - ESTIMATE_MARGIN)).quantize(Decimal("100"), rounding=ROUND_DOWN))
+    high = int((value * (Decimal("1") + ESTIMATE_MARGIN)).quantize(Decimal("100"), rounding=ROUND_UP))
+    return low, max(low + 100, high)
+
+
 def query_term_present(term: str, tokens: list[str], allow_numeric_suffix: bool = False) -> bool:
     if term in tokens:
         return True
@@ -137,12 +145,17 @@ def candidate_price(candidate: dict[str, Any], items: list[dict[str, Any]], sour
     if not matches:
         return None
     matches.sort(key=lambda row: (-row[0], row[1]))
-    _, price, item = matches[0]
+    best_score = matches[0][0]
+    best_matches = [match for match in matches if match[0] == best_score]
+    prices = [match[1] for match in best_matches]
+    low, high = (min(prices), max(prices)) if len(set(prices)) > 1 else estimated_range(prices[0])
+    _, _, item = min(best_matches, key=lambda row: row[1])
+    source_name = source_name if len(set(prices)) > 1 else f"{source_name} (±5% estimate)"
     return {
         "candidateId": candidate["id"],
         "name": candidate["name"],
-        "low": price,
-        "high": price,
+        "low": low,
+        "high": high,
         "matchedName": product_name(item),
         "sourceUrl": product_url(item),
         "sourceName": source_name,
@@ -158,14 +171,17 @@ def manual_price(candidate: dict[str, Any], overrides: dict[str, Any]) -> dict[s
     if not isinstance(amount, (int, float)) or amount <= 0:
         return None
     price = int(Decimal(str(amount)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+    low, high = override.get("rangeINR", estimated_range(price))
+    if not isinstance(low, int) or not isinstance(high, int) or low <= 0 or high < low:
+        low, high = estimated_range(price)
     return {
         "candidateId": candidate["id"],
         "name": candidate["name"],
-        "low": price,
-        "high": price,
+        "low": low,
+        "high": high,
         "matchedName": candidate["name"],
         "sourceUrl": override.get("sourceUrl"),
-        "sourceName": "Manual user-supplied rough price",
+        "sourceName": "Manual user-supplied rough price (±5% estimate)",
         "condition": "new",
     }
 
@@ -183,6 +199,33 @@ def apply_price_mode(price: dict[str, Any], mode: str) -> dict[str, Any]:
         "originalPriceINR": [price["low"], price["high"]],
         "usedFactor": float(USED_FACTOR),
     }
+
+
+def ensure_component_range(component: dict[str, Any]) -> None:
+    if component.get("low") != component.get("high"):
+        return
+    if component.get("condition") == "used" and isinstance(component.get("originalPriceINR"), list) and len(component["originalPriceINR"]) == 2:
+        original = int(component["originalPriceINR"][0])
+        original_low, original_high = estimated_range(original)
+        component["originalPriceINR"] = [original_low, original_high]
+        component["low"] = int((Decimal(original_low) * USED_FACTOR).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+        component["high"] = int((Decimal(original_high) * USED_FACTOR).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+    else:
+        component["low"], component["high"] = estimated_range(int(component["low"]))
+    source_name = str(component.get("sourceName", ""))
+    if "estimate" not in source_name.lower():
+        component["sourceName"] = f"{source_name} (±5% estimate)".strip()
+
+
+def ensure_build_ranges(build: dict[str, Any]) -> None:
+    components = build.get("components", {})
+    for component in components.values():
+        if isinstance(component, dict):
+            ensure_component_range(component)
+    build["totalINR"] = [
+        sum(int(component["low"]) for component in components.values()),
+        sum(int(component["high"]) for component in components.values()),
+    ]
 
 
 def compatible(selection: dict[str, dict[str, Any]], build: dict[str, Any]) -> bool:
@@ -370,6 +413,8 @@ def build_snapshot(
                 builds[build_id] = previous_build
     for build_id, reason in unresolved_reasons.items():
         print(f"Unresolved {build_id}: {reason}", file=sys.stderr, flush=True)
+    for build in builds.values():
+        ensure_build_ranges(build)
     if not builds:
         raise RuntimeError("No build had enough safe current matches")
     return {

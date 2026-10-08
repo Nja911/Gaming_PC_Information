@@ -6,7 +6,7 @@
     "fallbackRegion": "us",
     "usdToInr": 95
   },
-  "checkedAt": "2026-10-08T19:45:33+00:00",
+  "checkedAt": "2026-10-08T19:51:04+00:00",
   "builds": {
     "50000": {
       "budgetINR": 50000,
@@ -15,98 +15,98 @@
         70000
       ],
       "totalINR": [
-        49333,
-        49333
+        46865,
+        51800
       ],
       "components": {
         "CPU": {
           "candidateId": "cpu-5600",
           "name": "AMD Ryzen 5 5600",
-          "low": 6895,
-          "high": 6895,
+          "low": 6550,
+          "high": 7240,
           "matchedName": "AMD Ryzen 5 5600",
           "sourceUrl": "https://microcenterindia.com/collections/amd-am4",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            13790,
-            13790
+            13100,
+            14480
           ],
           "usedFactor": 0.5
         },
         "GPU": {
           "candidateId": "gpu-2060",
           "name": "GeForce RTX 2060",
-          "low": 13750,
-          "high": 13750,
+          "low": 13063,
+          "high": 14438,
           "matchedName": "Gigabyte OC",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            27500,
-            27500
+            26125,
+            28875
           ],
           "usedFactor": 0.5
         },
         "Motherboard": {
           "candidateId": "motherboard-a520",
           "name": "A520 AM4 motherboard",
-          "low": 2449,
-          "high": 2449,
+          "low": 2326,
+          "high": 2571,
           "matchedName": "A520 AM4 motherboard",
           "sourceUrl": "https://varietyinfotech.com/product-tag/msi-a520m-a-pro-motherboard/",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            4897,
-            4897
+            4652,
+            5142
           ],
           "usedFactor": 0.5
         },
         "RAM": {
           "candidateId": "ram-16-ddr4",
           "name": "16GB DDR4-3200",
-          "low": 2350,
-          "high": 2350,
+          "low": 2232,
+          "high": 2467,
           "matchedName": "Crucial Ballistix 16 GB",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            4699,
-            4699
+            4464,
+            4934
           ],
           "usedFactor": 0.5
         },
         "Storage": {
           "candidateId": "storage-500-nvme",
           "name": "500GB NVMe SSD",
-          "low": 10980,
-          "high": 10980,
+          "low": 10431,
+          "high": 11529,
           "matchedName": "Western Digital Black NVMe",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "PSU": {
           "candidateId": "psu-650-bronze",
           "name": "650W 80+ Bronze PSU",
-          "low": 5499,
-          "high": 5499,
+          "low": 5224,
+          "high": 5774,
           "matchedName": "Gigabyte P-B",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "Case": {
           "candidateId": "case-airflow-high",
           "name": "High-airflow mid-tower case",
-          "low": 7410,
-          "high": 7410,
+          "low": 7039,
+          "high": 7781,
           "matchedName": "Corsair iCUE 220T RGB Airflow",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         }
       }
@@ -118,98 +118,98 @@
         100000
       ],
       "totalINR": [
-        76507,
-        76507
+        72680,
+        80334
       ],
       "components": {
         "CPU": {
           "candidateId": "cpu-5600",
           "name": "AMD Ryzen 5 5600",
-          "low": 6895,
-          "high": 6895,
+          "low": 6550,
+          "high": 7240,
           "matchedName": "AMD Ryzen 5 5600",
           "sourceUrl": "https://microcenterindia.com/collections/amd-am4",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            13790,
-            13790
+            13100,
+            14480
           ],
           "usedFactor": 0.5
         },
         "GPU": {
           "candidateId": "gpu-3060",
           "name": "GeForce RTX 3060 12GB",
-          "low": 23607,
-          "high": 23607,
+          "low": 22427,
+          "high": 24788,
           "matchedName": "Gigabyte EAGLE",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            47214,
-            47214
+            44853,
+            49575
           ],
           "usedFactor": 0.5
         },
         "Motherboard": {
           "candidateId": "motherboard-b550",
           "name": "B550 AM4 motherboard",
-          "low": 6500,
-          "high": 6500,
+          "low": 6175,
+          "high": 6825,
           "matchedName": "Gigabyte B550 GAMING X",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            13000,
-            13000
+            12350,
+            13650
           ],
           "usedFactor": 0.5
         },
         "RAM": {
           "candidateId": "ram-32-ddr4",
           "name": "32GB DDR4-3600",
-          "low": 4962,
-          "high": 4962,
+          "low": 4713,
+          "high": 5210,
           "matchedName": "Crucial Ballistix 32 GB",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            9923,
-            9923
+            9426,
+            10420
           ],
           "usedFactor": 0.5
         },
         "Storage": {
           "candidateId": "storage-1tb-nvme",
           "name": "1TB NVMe SSD",
-          "low": 21634,
-          "high": 21634,
+          "low": 20552,
+          "high": 22716,
           "matchedName": "Gigabyte AORUS NVMe Gen4",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "PSU": {
           "candidateId": "psu-650-bronze",
           "name": "650W 80+ Bronze PSU",
-          "low": 5499,
-          "high": 5499,
+          "low": 5224,
+          "high": 5774,
           "matchedName": "Gigabyte P-B",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "Case": {
           "candidateId": "case-airflow-high",
           "name": "High-airflow mid-tower case",
-          "low": 7410,
-          "high": 7410,
+          "low": 7039,
+          "high": 7781,
           "matchedName": "Corsair iCUE 220T RGB Airflow",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         }
       }
@@ -221,108 +221,108 @@
         120000
       ],
       "totalINR": [
-        115977,
-        115977
+        110175,
+        121777
       ],
       "components": {
         "CPU": {
           "candidateId": "cpu-5700x3d",
           "name": "AMD Ryzen 7 5700X3D",
-          "low": 10550,
-          "high": 10550,
+          "low": 10022,
+          "high": 11077,
           "matchedName": "AMD Ryzen 7 5700X3D",
           "sourceUrl": "https://elitehubs.com/collections/ryzen-5000-series-processor",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            21099,
-            21099
+            20044,
+            22154
           ],
           "usedFactor": 0.5
         },
         "GPU": {
           "candidateId": "gpu-7900xt",
           "name": "Radeon RX 7900 XT",
-          "low": 41173,
-          "high": 41173,
+          "low": 39114,
+          "high": 43232,
           "matchedName": "Radeon RX 7900 XT",
           "sourceUrl": "https://mdcomputers.in/product/graphics-card/radeon-graphics-card/radeon-rx-7000-graphics-card/sapphire-graphics-card-rx-7900-xt-21323-01-20g",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            82345,
-            82345
+            78227,
+            86463
           ],
           "usedFactor": 0.5
         },
         "Motherboard": {
           "candidateId": "motherboard-b550",
           "name": "B550 AM4 motherboard",
-          "low": 6500,
-          "high": 6500,
+          "low": 6175,
+          "high": 6825,
           "matchedName": "Gigabyte B550 GAMING X",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            13000,
-            13000
+            12350,
+            13650
           ],
           "usedFactor": 0.5
         },
         "RAM": {
           "candidateId": "ram-32-ddr4",
           "name": "32GB DDR4-3600",
-          "low": 4962,
-          "high": 4962,
+          "low": 4713,
+          "high": 5210,
           "matchedName": "Crucial Ballistix 32 GB",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            9923,
-            9923
+            9426,
+            10420
           ],
           "usedFactor": 0.5
         },
         "Storage": {
           "candidateId": "storage-1tb-nvme",
           "name": "1TB NVMe SSD",
-          "low": 21634,
-          "high": 21634,
+          "low": 20552,
+          "high": 22716,
           "matchedName": "Gigabyte AORUS NVMe Gen4",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "PSU": {
           "candidateId": "psu-750-gold",
           "name": "750W 80+ Gold PSU",
-          "low": 7289,
-          "high": 7289,
+          "low": 6924,
+          "high": 7654,
           "matchedName": "Gigabyte P GM",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "Case": {
           "candidateId": "case-premium-airflow",
           "name": "Premium high-airflow case",
-          "low": 19990,
-          "high": 19990,
+          "low": 18990,
+          "high": 20990,
           "matchedName": "Corsair 500D Premium",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "CPU Cooler": {
           "candidateId": "cooler-tower",
           "name": "Tower air cooler",
-          "low": 3879,
-          "high": 3879,
+          "low": 3685,
+          "high": 4073,
           "matchedName": "Tower air cooler",
           "sourceUrl": "https://price-history.in/product/thermalright-peerless-assassin-120-se-v-VBYGzPyp",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         }
       }
@@ -334,94 +334,97 @@
         620000
       ],
       "totalINR": [
-        610437,
-        610437
+        559022,
+        617870
       ],
       "components": {
         "CPU": {
           "candidateId": "cpu-9800x3d",
           "name": "AMD Ryzen 7 9800X3D",
-          "low": 46999,
-          "high": 46999,
+          "low": 44649,
+          "high": 49349,
           "matchedName": "AMD Ryzen 7 9800X3D",
           "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "GPU": {
           "candidateId": "gpu-5080",
           "name": "GeForce RTX 5080",
-          "low": 184999,
-          "high": 184999,
+          "low": 175749,
+          "high": 194249,
           "matchedName": "GeForce RTX 5080",
           "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5080-graphics-card/inno3d-graphics-card-rtx-5080-x3-n50803-16d7-376068n",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "Motherboard": {
           "candidateId": "motherboard-x870e",
           "name": "X870E AM5 motherboard",
-          "low": 23400,
-          "high": 23400,
+          "low": 22230,
+          "high": 24570,
           "matchedName": "X870E AM5 motherboard",
           "sourceUrl": "https://mdcomputers.in/product/motherboard/amd-chipset-motherboard/x870-motherboard/msi-pro-x870e-s-evo-wifi-motherboard",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "RAM": {
           "candidateId": "ram-64-ddr5",
           "name": "64GB DDR5-6000",
-          "low": 185010,
-          "high": 185010,
+          "low": 175759,
+          "high": 194261,
           "matchedName": "64GB DDR5-6000",
           "sourceUrl": "https://www.amazon.in/CORSAIR-Vengeance-288-Pin-Desktop-CMK64GX5M2D6000C40/dp/B0FNRJV6FS",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "Storage": {
           "candidateId": "storage-4tb-nvme",
           "name": "4TB NVMe SSD",
-          "low": 87622,
-          "high": 87622,
+          "low": 83240,
+          "high": 92004,
           "matchedName": "4TB NVMe SSD",
           "sourceUrl": "https://onlyssd.com/capacity/4-tb-ssd/",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "PSU": {
           "candidateId": "psu-1200-gold",
           "name": "1200W 80+ Gold PSU",
-          "low": 26718,
-          "high": 26718,
+          "low": 25382,
+          "high": 28054,
           "matchedName": "Thermaltake Toughpower",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         },
         "Case": {
           "candidateId": "case-super-tower",
           "name": "Premium full-tower case",
-          "low": 23699,
-          "high": 23699,
+          "low": 22514,
+          "high": 24884,
           "matchedName": "Premium full-tower case",
           "sourceUrl": "https://varietyinfotech.com/product-tag/7000d/",
-          "sourceName": "Manual user-supplied rough price",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "CPU Cooler": {
-          "candidateId": "cooler-360-aio",
-          "name": "360mm AIO cooler",
-          "low": 31990,
-          "high": 31990,
-          "matchedName": "Gigabyte AORUS LIQUID COOLER 360",
+          "candidateId": "cooler-240-aio",
+          "name": "240mm AIO cooler",
+          "low": 9499,
+          "high": 10499,
+          "matchedName": "MSI MAG CORE LIQUID 240R",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India",
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
         }
       }
     }
   },
   "unresolvedBuilds": [
+    "50000",
+    "80000",
+    "100000",
     "150000",
     "200000",
     "275000",
