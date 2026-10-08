@@ -41,8 +41,10 @@ function cpuFor(build: (typeof builds)[number]) {
 
 export default function HomePage() {
   const pricedBuilds = builds.map(resolveBuild);
-  const leadBuild = pricedBuilds[4] ?? pricedBuilds[0];
-  const secondBuild = pricedBuilds[1] ?? pricedBuilds[0];
+  const currentBuilds = pricedBuilds.filter((build) => build.hasLivePricing);
+  const leadBuild = currentBuilds.find((build) => build.budget >= 200000) ?? currentBuilds.at(-1) ?? pricedBuilds[0];
+  const secondaryBuilds = currentBuilds.filter((build) => build.slug !== leadBuild?.slug).slice(-2);
+  const secondBuilds = secondaryBuilds.length >= 2 ? secondaryBuilds : pricedBuilds.filter((build) => build.slug !== leadBuild?.slug).slice(0, 2);
 
   return <>
     <section className="mx-auto grid max-w-[90rem] items-end gap-10 px-5 pb-12 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[.9fr_1.1fr]">
@@ -83,7 +85,7 @@ export default function HomePage() {
         <div><p className="section-kicker mb-5">02 / Featured build</p><h2 className="font-display max-w-xl text-5xl leading-[.88] sm:text-7xl">Start with<br />the GPU.</h2></div>
         <Link href="/gaming-pc/builds" className="min-h-11 content-center text-sm underline editorial-link">All builds ↗</Link>
       </div>
-      <Link href={`/gaming-pc/builds/${leadBuild.slug}`} className="group grid gap-8 border-t border-line pt-6 lg:grid-cols-[1.35fr_.65fr] lg:gap-12">
+      {leadBuild && <Link href={`/gaming-pc/builds/${leadBuild.slug}`} className="group grid gap-8 border-t border-line pt-6 lg:grid-cols-[1.35fr_.65fr] lg:gap-12">
         <div className="product-frame relative aspect-[4/3] overflow-hidden">
           <Image src="/images/graphics-card-feature.png" alt="Close-up of a triple-fan graphics card for a gaming PC build" fill className="feature-image object-cover" sizes="(max-width: 1024px) 100vw, 65vw" />
         </div>
@@ -91,9 +93,9 @@ export default function HomePage() {
           <div><p className="section-kicker mb-4">{leadBuild.targetResolutions?.join(" / ")}</p><h3 className="font-display text-4xl leading-[.92] sm:text-6xl">{leadBuild.title.replace("Best Gaming PC Around ", "")}</h3><p className="mt-6 max-w-md text-sm leading-relaxed text-dim">{leadBuild.intro}</p></div>
           <div className="grid grid-cols-2 gap-5"><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">GPU</span><span className="mt-2 block text-sm leading-snug">{gpuFor(leadBuild)}</span></div><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">CPU</span><span className="mt-2 block text-sm leading-snug">{cpuFor(leadBuild)}</span></div><div className="product-stat col-span-2"><span className="block text-xs uppercase tracking-[.12em] text-dim">Target budget range</span><span className="readout mt-2 block text-3xl text-accent">{formatINRRange(leadBuild.budgetRange ?? [leadBuild.budget - 20000, leadBuild.budget + 20000])}</span></div></div>
         </div>
-      </Link>
+      </Link>}
       <div className="mt-16 grid gap-8 border-t border-line pt-6 md:grid-cols-2">
-        {[secondBuild, pricedBuilds[6] ?? pricedBuilds[2]].map((build) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="group grid gap-5 sm:grid-cols-[10rem_1fr]">
+        {secondBuilds.map((build) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="group grid gap-5 sm:grid-cols-[10rem_1fr]">
           <div className="product-frame relative aspect-square overflow-hidden"><Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower with a glass side panel" fill className="feature-image object-cover" sizes="(max-width: 640px) 100vw, 10rem" /></div>
           <div><p className="section-kicker mb-3">{build.targetResolution} · {formatINRRange(build.budgetRange ?? [build.budget - 20000, build.budget + 20000])}</p><h3 className="font-display text-3xl leading-[.92] transition-colors group-hover:text-accent">{build.title.replace("Best Gaming PC Around ", "")}</h3><p className="mt-4 text-sm leading-relaxed text-dim">{gpuFor(build)}</p></div>
         </Link>)}

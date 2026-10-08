@@ -15,7 +15,7 @@ function resolveComponent(component: BuildComponent, live: LiveComponentPrice | 
     name: live.name,
     priceRangeINR: [live.low, live.high],
     priceINR: undefined,
-    priceNote: `PCPartPicker match: ${live.matchedName}`,
+    priceNote: `${live.sourceName}: ${live.matchedName}`,
     livePrice: {
       checkedAt,
       sourceName: live.sourceName,

@@ -160,6 +160,27 @@ optional USD PCPartPicker matches have no usable non-zero price; live matches
 take priority. A single manual value is displayed as a rounded ±5% estimate;
 multiple PCPartPicker listings use their observed low/high prices.
 
+For a second retailer source, expose a normalized JSON endpoint through
+`RETAILER_PRICE_API_URL` or pass `--retailer-api`. The endpoint may return
+`{"prices":{"cpu-5600":{"priceINR":13790,"sourceName":"Amazon","sourceUrl":"https://..."}}}`.
+It can be backed by Amazon Product Advertising API, a retailer feed, or another
+provider; the updater does not scrape Amazon pages or require vendor
+credentials. Retailer API values are used after PCPartPicker and before the
+manual override file. Restart the dev server after refreshing because the
+snapshot is imported at build time.
+
+If Amazon access is unavailable, the updater also supports ReefAPI's Flipkart
+search fallback. It returns live INR catalogue results through a documented
+JSON endpoint. Set the key from its free starter account and run:
+
+```powershell
+$env:REEFAPI_KEY = "your-key"
+.venv\Scripts\python scripts\fetch_pcpartpicker_prices.py --with-us-fallback
+```
+
+ReefAPI is queried only for candidates still missing after PCPartPicker. Keep
+the key local; do not commit it to the repository.
+
 ## Local development
 
 ```bash

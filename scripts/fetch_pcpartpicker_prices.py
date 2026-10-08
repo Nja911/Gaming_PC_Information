@@ -6,6 +6,7 @@ import argparse
 import asyncio
 import itertools
 import json
+import os
 import re
 import sys
 import tempfile
@@ -13,10 +14,12 @@ from datetime import datetime, timezone
 from decimal import Decimal, ROUND_DOWN, ROUND_HALF_UP, ROUND_UP
 from pathlib import Path
 from typing import Any
+from urllib.request import Request, urlopen
 
 USD_TO_INR = Decimal("95")
 USED_FACTOR = Decimal("0.5")
 ESTIMATE_MARGIN = Decimal("0.05")
+REEFAPI_SEARCH_URL = "https://api.reefapi.com/flipkart/v1/search"
 CATEGORY_TYPES = {
     "CPU": "cpu",
     "GPU": "video-card",
@@ -163,7 +166,11 @@ def candidate_price(candidate: dict[str, Any], items: list[dict[str, Any]], sour
     }
 
 
-def manual_price(candidate: dict[str, Any], overrides: dict[str, Any]) -> dict[str, Any] | None:
+def manual_price(
+    candidate: dict[str, Any],
+    overrides: dict[str, Any],
+    default_source_name: str = "Manual user-supplied rough price (±5% estimate)",
+) -> dict[str, Any] | None:
     override = overrides.get(candidate["id"])
     if not isinstance(override, dict):
         return None
@@ -180,10 +187,62 @@ def manual_price(candidate: dict[str, Any], overrides: dict[str, Any]) -> dict[s
         "low": low,
         "high": high,
         "matchedName": candidate["name"],
-        "sourceUrl": override.get("sourceUrl"),
-        "sourceName": "Manual user-supplied rough price (±5% estimate)",
+        "sourceUrl": override.get("sourceUrl") or override.get("url"),
+        "sourceName": override.get("sourceName") or default_source_name,
         "condition": "new",
     }
+
+
+def fetch_retailer_feed(url: str) -> dict[str, Any]:
+    """Read a normalized retailer JSON feed without a vendor-specific SDK."""
+    request = Request(url, headers={"Accept": "application/json", "User-Agent": "gamingpc-guide-price-updater/1.0"})
+    with urlopen(request, timeout=30) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("Retailer price API must return a JSON object")
+    prices = payload.get("prices", payload)
+    if not isinstance(prices, dict):
+        raise ValueError("Retailer price API prices must be an object")
+    return prices
+
+
+def reefapi_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    data = payload.get("data")
+    results = data.get("results") if isinstance(data, dict) else None
+    if not isinstance(results, list):
+        return []
+    items = []
+    for result in results:
+        if not isinstance(result, dict) or result.get("in_stock") is False:
+            continue
+        price = result.get("price")
+        if not isinstance(price, (int, float)) or price <= 0:
+            continue
+        items.append({
+            "model": result.get("title", ""),
+            "price": ["INR", price],
+            "url": result.get("url"),
+            "in_stock": True,
+        })
+    return items
+
+
+def fetch_reefapi_prices(api_key: str, candidates: dict[str, dict[str, Any]], needed: set[str]) -> dict[str, dict[str, Any]]:
+    prices: dict[str, dict[str, Any]] = {}
+    for candidate_id in sorted(needed):
+        candidate = candidates[candidate_id]
+        request = Request(
+            REEFAPI_SEARCH_URL,
+            data=json.dumps({"q": " ".join(candidate["query"]), "page": 1}).encode("utf-8"),
+            headers={"Accept": "application/json", "Content-Type": "application/json", "x-api-key": api_key},
+            method="POST",
+        )
+        with urlopen(request, timeout=30) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        match = candidate_price(candidate, reefapi_items(payload), "ReefAPI Flipkart")
+        if match:
+            prices[candidate_id] = match
+    return prices
 
 
 def apply_price_mode(price: dict[str, Any], mode: str) -> dict[str, Any]:
@@ -346,6 +405,8 @@ def build_snapshot(
     previous: dict[str, Any] | None = None,
     diagnose: bool = False,
     manual_overrides: dict[str, Any] | None = None,
+    retailer_overrides: dict[str, Any] | None = None,
+    reefapi_key: str | None = None,
 ) -> dict[str, Any]:
     candidates = {candidate["id"]: candidate for candidate in manifest["candidates"]}
     needed = {candidate_id for build in manifest["builds"].values() for ids in build["allowed"].values() for candidate_id in ids}
@@ -375,6 +436,20 @@ def build_snapshot(
             if match:
                 prices[candidate_id] = match
                 missing.remove(candidate_id)
+    if reefapi_key and missing:
+        try:
+            reef_prices = fetch_reefapi_prices(reefapi_key, candidates, set(missing))
+            for candidate_id, match in reef_prices.items():
+                prices[candidate_id] = match
+                missing.remove(candidate_id)
+            print(f"Matched {len(reef_prices)} candidates from ReefAPI Flipkart", flush=True)
+        except Exception as error:
+            print(f"ReefAPI unavailable; continuing with retailer/manual prices: {error}", file=sys.stderr, flush=True)
+    for candidate_id in list(missing):
+        match = manual_price(candidates[candidate_id], retailer_overrides or {}, "Retailer price API (±5% estimate)")
+        if match:
+            prices[candidate_id] = match
+            missing.remove(candidate_id)
     for candidate_id in list(missing):
         match = manual_price(candidates[candidate_id], manual_overrides or {})
         if match:
@@ -442,6 +517,8 @@ def refresh_snapshot(
     fallback_api: Any | None = None,
     diagnose: bool = False,
     manual_overrides: dict[str, Any] | None = None,
+    retailer_overrides: dict[str, Any] | None = None,
+    reefapi_key: str | None = None,
 ) -> dict[str, Any]:
     previous = None
     if output.exists():
@@ -449,7 +526,7 @@ def refresh_snapshot(
             previous = load_json(output)
         except (OSError, json.JSONDecodeError):
             previous = None
-    snapshot = build_snapshot(api, manifest, fallback_api, previous, diagnose, manual_overrides)
+    snapshot = build_snapshot(api, manifest, fallback_api, previous, diagnose, manual_overrides, retailer_overrides, reefapi_key)
     write_atomic(output, snapshot)
     return snapshot
 
@@ -464,6 +541,16 @@ def main() -> int:
         help="Also scan the slower PCPartPicker US catalog for candidates missing in India.",
     )
     parser.add_argument("--diagnose", action="store_true", help="Print sample catalog entries while debugging matches.")
+    parser.add_argument(
+        "--retailer-api",
+        default=os.environ.get("RETAILER_PRICE_API_URL"),
+        help="Optional normalized retailer JSON API; also reads RETAILER_PRICE_API_URL.",
+    )
+    parser.add_argument(
+        "--reefapi-key",
+        default=os.environ.get("REEFAPI_KEY"),
+        help="Optional ReefAPI key for free-starter-credit Flipkart fallback; also reads REEFAPI_KEY.",
+    )
     args = parser.parse_args()
     try:
         from pcpartpicker import API
@@ -472,6 +559,13 @@ def main() -> int:
         fallback_api = API("us") if args.with_us_fallback else None
         manual_path = project_root() / "src/content/pricing/manual-overrides.json"
         manual_overrides = load_json(manual_path) if manual_path.exists() else {}
+        retailer_overrides = {}
+        if args.retailer_api:
+            try:
+                retailer_overrides = fetch_retailer_feed(args.retailer_api)
+                print(f"Loaded {len(retailer_overrides)} retailer API prices", flush=True)
+            except Exception as error:
+                print(f"Retailer price API unavailable; continuing with PCPartPicker/manual prices: {error}", file=sys.stderr, flush=True)
         snapshot = refresh_snapshot(
             API("in"),
             load_json(args.manifest),
@@ -479,6 +573,8 @@ def main() -> int:
             fallback_api,
             args.diagnose,
             manual_overrides,
+            retailer_overrides,
+            args.reefapi_key,
         )
         print(f"Wrote {len(snapshot['builds'])} build recommendations checked at {snapshot['checkedAt']}")
         if snapshot.get("unresolvedBuilds"):

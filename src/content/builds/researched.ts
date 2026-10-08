@@ -1,4 +1,5 @@
 import type { BuildComponent, GamingPCBuild, Source } from "@/types";
+import { pricingSnapshot } from "@/content/pricing";
 
 export const marketSources: Source[] = [
   { id: "md-cpu", name: "MDComputers CPU catalogue", type: "retailer", url: "https://mdcomputers.in/catalog/processor", accessedAt: "2026-08-30", supports: "Indian CPU retail prices and availability" },
@@ -60,6 +61,8 @@ export function makeBuild(tier: Tier): GamingPCBuild {
   const ranges: PriceRange[] = [...platformRanges, ...tier.ranges.slice(4)];
   const platformCondition = tier.used ? "used" : "new";
   const platformSources = tier.used ? ["getpc-used", "getpc-price"] : ["md-cpu", "md-gpu", "smartprix"];
+  const snapshotBuild = pricingSnapshot.builds[String(tier.budget)];
+  const range: [number, number] = snapshotBuild?.budgetRangeINR ?? [tier.budget - 20000, tier.budget + 20000];
   const components = [
     part("CPU", tier.cpu, "The CPU is matched to the GPU target and platform budget; spending more here would reduce gaming performance elsewhere.", ranges[0], platformCondition, platformSources, tier.used ? "Estimated at 50% of the latest new-equivalent price; verify condition and warranty." : undefined),
     part("GPU", tier.gpu, tier.gpuReason, ranges[1], platformCondition, tier.used ? ["getpc-used", "getpc-price"] : ["md-gpu", "smartprix"], tier.used ? "Estimated at 50% of the latest new-equivalent price; verify exact model and warranty." : "Check stock, exact model and warranty before paying."),
@@ -69,14 +72,32 @@ export function makeBuild(tier: Tier): GamingPCBuild {
     part("PSU", tier.psu, "A reputable PSU with appropriate headroom is essential system infrastructure, not a place to gamble on used stock.", ranges[5], "new", ["smartprix"]),
     part("Case", tier.case, "Airflow and GPU clearance matter more than glass or RGB at this budget.", ranges[6], "new", ["smartprix"]),
     part("CPU Cooler", tier.cooler, "Cooling is sized to the CPU and noise target; bundled cooling is used where the processor supports it.", ranges[7], ranges[7][1] === 0 ? "bundled" : "new", ranges[7][1] === 0 ? [] : ["smartprix"]),
-  ];
-  const range: [number, number] = [tier.budget - 20000, tier.budget + 20000];
+  ].map((component) => {
+    const live = snapshotBuild?.components[component.category];
+    if (!live || component.condition !== live.condition) return component;
+    return {
+      ...component,
+      name: live.name,
+      priceRangeINR: [live.low, live.high] as PriceRange,
+      priceINR: undefined,
+      priceNote: `${live.sourceName}: ${live.matchedName}`,
+      livePrice: {
+        checkedAt: pricingSnapshot.checkedAt,
+        sourceName: live.sourceName,
+        sourceUrl: live.sourceUrl,
+        condition: live.condition,
+        originalPriceINR: live.originalPriceINR,
+      },
+    };
+  });
+  const cpuName = components.find((component) => component.category === "CPU")?.name ?? tier.cpu;
+  const gpuName = components.find((component) => component.category === "GPU")?.name ?? tier.gpu;
   return {
     slug: String(tier.budget), budget: tier.budget, budgetRange: range,
     title: `Best Gaming PC Around ₹${tier.budget.toLocaleString("en-IN")} in India`,
     metaDescription: `${tier.label} Indian gaming PC build for ${tier.target}, targeting ₹${range[0].toLocaleString("en-IN")}–₹${range[1].toLocaleString("en-IN")} with current price checks.`,
     intro: `A ${tier.label.toLowerCase()} build for ${tier.target}, selected to keep the complete parts total within ₹${range[0].toLocaleString("en-IN")}–₹${range[1].toLocaleString("en-IN")}.`,
-    summary: `${tier.cpu} paired with ${tier.gpu}. Target: ${tier.target}.`, targetResolution: tier.resolutions[0], targetResolutions: tier.resolutions, targetFPS: tier.fps,
+    summary: `${cpuName} paired with ${gpuName}. Target: ${tier.target}.`, targetResolution: tier.resolutions[0], targetResolutions: tier.resolutions, targetFPS: tier.fps,
     components, performance: { "1080p": { rating: tier.budget < 100000 ? 4 : 5, note: tier.target }, "1440p": { rating: tier.budget < 80000 ? 2 : 4, note: tier.target }, "4k": { rating: tier.budget < 150000 ? 1 : 4, note: tier.target } },
     whyTheseComponents: `${tier.gpuReason} ${tier.sacrifice}`,
     upgradePath: `Priority 1: GPU when the target resolution becomes demanding. Priority 2: RAM or storage if workloads grow. Priority 3: ${tier.used ? "move to a new AM5 platform when a CPU upgrade would otherwise require replacing the board and memory." : "use the AM5 socket's future CPU path after a GPU upgrade."}`,
@@ -84,7 +105,7 @@ export function makeBuild(tier: Tier): GamingPCBuild {
     alternatives: [{ component: "GPU", alternative: tier.used ? "A newer equivalent with warranty" : "The competing AMD/NVIDIA card at the same price", tradeoff: "Choose based on verified current price, rasterisation, ray tracing and warranty rather than brand alone." }, { component: "CPU", alternative: tier.used ? "A lower AM4 CPU and stronger GPU" : "A lower CPU tier and larger SSD", tradeoff: "Reallocating money changes minimum frames or storage convenience; it does not improve every workload equally." }],
     ifBudgetChanges: `Stay within the ₹${range[0].toLocaleString("en-IN")}–₹${range[1].toLocaleString("en-IN")} target by protecting GPU class first and reducing cosmetic features before PSU quality. ${tier.sacrifice}`,
     faqs: [{ question: "Who should buy this build?", answer: `Buy it if you want ${tier.target} and accept the listed ${tier.used ? "used-market checks" : "new-part pricing volatility"}.` }, { question: "Who should avoid it?", answer: tier.used ? "Avoid it if you require only factory-new parts or cannot test used hardware before purchase." : "Avoid it if current GPU stock pushes the total outside the stated range; wait or step down a route." }, { question: "Are the FPS numbers guaranteed?", answer: "No. This page uses target guidance rather than universal FPS promises. Game-specific performance requires a benchmark for the exact GPU, settings and driver." }],
-    relatedBuilds: [], relatedGuides: [{ label: "How to build a gaming PC", href: "/guides/how-to-build-a-gaming-pc" }, { label: "Component compatibility", href: "/guides/pc-component-compatibility" }], lastUpdated: "2026-08-30", pricesChecked: "2026-08-30", sources: marketSources, confidence: tier.confidence, tested: false, audience: [tier.target], useCases: ["Gaming"], sacrifices: [tier.sacrifice], whoShouldBuy: [`Players targeting ${tier.target}`, ...(tier.used ? ["Buyers comfortable with tested used components"] : [])], whoShouldAvoid: [tier.used ? "Buyers who require all-new components" : "Buyers unwilling to verify live stock and price"],
+    relatedBuilds: [], relatedGuides: [{ label: "How to build a gaming PC", href: "/guides/how-to-build-a-gaming-pc" }, { label: "Component compatibility", href: "/guides/pc-component-compatibility" }], lastUpdated: "2026-08-30", pricesChecked: snapshotBuild ? pricingSnapshot.checkedAt : "2026-08-30", sources: marketSources, confidence: tier.confidence, tested: false, audience: [tier.target], useCases: ["Gaming"], sacrifices: [tier.sacrifice], whoShouldBuy: [`Players targeting ${tier.target}`, ...(tier.used ? ["Buyers comfortable with tested used components"] : [])], whoShouldAvoid: [tier.used ? "Buyers who require all-new components" : "Buyers unwilling to verify live stock and price"],
   };
 }
 

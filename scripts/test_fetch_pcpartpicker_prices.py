@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from fetch_pcpartpicker_prices import apply_price_mode, candidate_price, choose_build, compatible, manual_price, refresh_snapshot, to_inr
+from fetch_pcpartpicker_prices import apply_price_mode, candidate_price, choose_build, compatible, manual_price, reefapi_items, refresh_snapshot, to_inr
 
 
 class PricingUpdaterTests(unittest.TestCase):
@@ -57,6 +57,24 @@ class PricingUpdaterTests(unittest.TestCase):
         self.assertGreater(price["high"], 46999)
         self.assertEqual(price["condition"], "new")
         self.assertEqual(price["sourceUrl"], "https://example.com")
+
+    def test_retailer_price_uses_provider_metadata(self):
+        candidate = {"id": "cpu", "name": "AMD Ryzen 5 5600"}
+        price = manual_price(
+            candidate,
+            {"cpu": {"priceINR": 13790, "sourceName": "Amazon", "sourceUrl": "https://amazon.in/example"}},
+            "Retailer price API",
+        )
+        self.assertEqual(price["sourceName"], "Amazon")
+        self.assertEqual(price["sourceUrl"], "https://amazon.in/example")
+
+    def test_reefapi_response_is_normalized_to_catalog_items(self):
+        items = reefapi_items({"data": {"results": [
+            {"title": "AMD Ryzen 5 5600 Processor", "price": 13790, "url": "https://flipkart.com/example", "in_stock": True},
+            {"title": "Out of stock Ryzen 5 5600", "price": 12000, "in_stock": False},
+        ]}})
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["price"], ["INR", 13790])
 
     def test_incompatible_gpu_and_psu_are_rejected(self):
         selection = {"GPU": {"minPsu": 750}, "PSU": {"wattage": 650}}
