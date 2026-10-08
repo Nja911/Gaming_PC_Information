@@ -58,6 +58,8 @@ export interface BuildPriceRecommendation {
   budgetINR: number;
   budgetRangeINR: [number, number];
   totalINR: [number, number];
+  withinBudget?: boolean;
+  budgetStatus?: "in-range" | "out-of-band";
   components: Partial<Record<BuildComponent["category"], LiveComponentPrice>>;
 }
 
@@ -72,6 +74,7 @@ export interface PricingSnapshot {
   checkedAt: string;
   builds: Record<string, BuildPriceRecommendation>;
   unresolvedBuilds?: string[];
+  outOfBandBuilds?: string[];
 }
 
 export type SourceType = "retailer" | "used-market" | "manufacturer" | "benchmark" | "editorial";

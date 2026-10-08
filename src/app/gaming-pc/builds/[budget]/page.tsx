@@ -62,7 +62,9 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
         <AuthorInfo />
       </div>
       <p className="mb-8 text-xs text-dim">
-        {pricedBuild.hasLivePricing
+        {pricedBuild.hasLivePricing && pricedBuild.isOutOfBand
+          ? "Current PCPartPicker prices produce a compatible build above this route's target range; the actual total is shown below."
+          : pricedBuild.hasLivePricing
           ? "New-part prices use the latest successful PCPartPicker snapshot; used platform parts use 50% of their matched new-equivalent price."
           : "No safe PCPartPicker match is available for this tier yet; existing editorial estimates are shown."}
       </p>

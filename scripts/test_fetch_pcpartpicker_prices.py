@@ -22,7 +22,8 @@ class PricingUpdaterTests(unittest.TestCase):
         ]
         match = candidate_price(candidate, items)
         self.assertIsNotNone(match)
-        self.assertEqual(match["low"], 5500)
+        self.assertEqual(match["low"], 5225)
+        self.assertGreater(match["high"], match["low"])
 
     def test_candidate_matching_allows_missing_vendor_token_and_split_model_name(self):
         candidate = {"id": "cpu", "query": ["AMD", "9800X3D"], "name": "AMD Ryzen 7 9800X3D"}
@@ -100,17 +101,18 @@ class PricingUpdaterTests(unittest.TestCase):
         self.assertEqual(result["budgetINR"], 50000)
         self.assertEqual(result["budgetRangeINR"], [30000, 70000])
 
-    def test_combination_above_upper_band_is_rejected(self):
+    def test_combination_above_upper_band_is_published_as_out_of_band(self):
         candidates = {"part": {"id": "part", "category": "Storage", "performance": 1}}
         prices = {"part": {"candidateId": "part", "low": 70001, "high": 70001, "condition": "new"}}
-        with self.assertRaisesRegex(RuntimeError, "fits"):
-            choose_build(
-                "50000",
-                {"budgetRangeINR": [30000, 70000], "minPsu": 0, "allowed": {"Storage": ["part"]}},
-                candidates,
-                prices,
-                50000,
-            )
+        result = choose_build(
+            "50000",
+            {"budgetRangeINR": [30000, 70000], "minPsu": 0, "allowed": {"Storage": ["part"]}},
+            candidates,
+            prices,
+            50000,
+        )
+        self.assertEqual(result["budgetStatus"], "out-of-band")
+        self.assertFalse(result["withinBudget"])
 
     def test_active_route_manifest_has_exact_budget_list(self):
         manifest = json.loads(Path(__file__).parents[1].joinpath("src/content/pricing/targets.json").read_text(encoding="utf-8"))

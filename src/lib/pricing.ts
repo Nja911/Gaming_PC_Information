@@ -5,6 +5,7 @@ export interface ResolvedGamingPCBuild extends GamingPCBuild {
   currentBudgetINR: number;
   currentTotalINR: [number, number];
   hasLivePricing: boolean;
+  isOutOfBand: boolean;
 }
 
 function resolveComponent(component: BuildComponent, live: LiveComponentPrice | undefined, checkedAt: string): BuildComponent {
@@ -37,7 +38,7 @@ export function resolveBuild(build: GamingPCBuild): ResolvedGamingPCBuild {
       },
       [0, 0] as [number, number],
     );
-    return { ...build, currentBudgetINR: build.budget, currentTotalINR: total, hasLivePricing: false };
+    return { ...build, currentBudgetINR: build.budget, currentTotalINR: total, hasLivePricing: false, isOutOfBand: false };
   }
 
   const resolved = build.components.map((component) => {
@@ -54,6 +55,7 @@ export function resolveBuild(build: GamingPCBuild): ResolvedGamingPCBuild {
     currentBudgetINR: pricing.budgetINR,
     currentTotalINR: pricing.totalINR,
     hasLivePricing: Object.keys(pricing.components).length > 0,
+    isOutOfBand: pricing.withinBudget === false || pricing.budgetStatus === "out-of-band",
     budgetRange: pricing.budgetRangeINR,
     pricesChecked: pricingSnapshot.checkedAt,
   };

@@ -6,7 +6,7 @@
     "fallbackRegion": "us",
     "usdToInr": 95
   },
-  "checkedAt": "2026-10-08T19:51:04+00:00",
+  "checkedAt": "2026-10-08T20:27:29+00:00",
   "builds": {
     "50000": {
       "budgetINR": 50000,
@@ -18,6 +18,8 @@
         46865,
         51800
       ],
+      "withinBudget": true,
+      "budgetStatus": "in-range",
       "components": {
         "CPU": {
           "candidateId": "cpu-5600",
@@ -118,9 +120,11 @@
         100000
       ],
       "totalINR": [
-        72680,
-        80334
+        56778,
+        62758
       ],
+      "withinBudget": true,
+      "budgetStatus": "in-range",
       "components": {
         "CPU": {
           "candidateId": "cpu-5600",
@@ -138,17 +142,17 @@
           "usedFactor": 0.5
         },
         "GPU": {
-          "candidateId": "gpu-3060",
-          "name": "GeForce RTX 3060 12GB",
-          "low": 22427,
-          "high": 24788,
-          "matchedName": "Gigabyte EAGLE",
+          "candidateId": "gpu-4060",
+          "name": "GeForce RTX 4060",
+          "low": 6525,
+          "high": 7212,
+          "matchedName": "Zotac ZT-40609-10L",
           "sourceUrl": null,
-          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            44853,
-            49575
+            13049,
+            14423
           ],
           "usedFactor": 0.5
         },
@@ -221,9 +225,11 @@
         120000
       ],
       "totalINR": [
-        110175,
-        121777
+        98224,
+        108568
       ],
+      "withinBudget": true,
+      "budgetStatus": "in-range",
       "components": {
         "CPU": {
           "candidateId": "cpu-5700x3d",
@@ -306,11 +312,11 @@
           "condition": "new"
         },
         "Case": {
-          "candidateId": "case-premium-airflow",
-          "name": "Premium high-airflow case",
-          "low": 18990,
-          "high": 20990,
-          "matchedName": "Corsair 500D Premium",
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 7039,
+          "high": 7781,
+          "matchedName": "Corsair iCUE 220T RGB Airflow",
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
@@ -327,6 +333,481 @@
         }
       }
     },
+    "150000": {
+      "budgetINR": 150000,
+      "budgetRangeINR": [
+        130000,
+        170000
+      ],
+      "totalINR": [
+        180219,
+        199195
+      ],
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
+      "components": {
+        "CPU": {
+          "candidateId": "cpu-7600",
+          "name": "AMD Ryzen 5 7600",
+          "low": 44278,
+          "high": 48940,
+          "matchedName": "Intel Core i5-7600",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "GPU": {
+          "candidateId": "gpu-5070",
+          "name": "GeForce RTX 5070",
+          "low": 31911,
+          "high": 35271,
+          "matchedName": "Zotac ZT-50702-10M",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Motherboard": {
+          "candidateId": "motherboard-x870",
+          "name": "X870 AM5 motherboard",
+          "low": 20710,
+          "high": 22890,
+          "matchedName": "X870 AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/product/gigabyte-x870-gaming-wifi6-motherboard/motherboard/amd-chipset-motherboard/x870-motherboard",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "RAM": {
+          "candidateId": "ram-32-ddr5",
+          "name": "32GB DDR5-6000",
+          "low": 45120,
+          "high": 49870,
+          "matchedName": "32GB DDR5-6000",
+          "sourceUrl": "https://elitehubs.com/collections/6000mhz-ram",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Storage": {
+          "candidateId": "storage-1tb-nvme",
+          "name": "1TB NVMe SSD",
+          "low": 20552,
+          "high": 22716,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "PSU": {
+          "candidateId": "psu-750-gold",
+          "name": "750W 80+ Gold PSU",
+          "low": 6924,
+          "high": 7654,
+          "matchedName": "Gigabyte P GM",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Case": {
+          "candidateId": "case-airflow-high",
+          "name": "High-airflow mid-tower case",
+          "low": 7039,
+          "high": 7781,
+          "matchedName": "Corsair iCUE 220T RGB Airflow",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-tower",
+          "name": "Tower air cooler",
+          "low": 3685,
+          "high": 4073,
+          "matchedName": "Tower air cooler",
+          "sourceUrl": "https://price-history.in/product/thermalright-peerless-assassin-120-se-v-VBYGzPyp",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        }
+      }
+    },
+    "200000": {
+      "budgetINR": 200000,
+      "budgetRangeINR": [
+        180000,
+        220000
+      ],
+      "totalINR": [
+        523839,
+        578985
+      ],
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
+      "components": {
+        "CPU": {
+          "candidateId": "cpu-9800x3d",
+          "name": "AMD Ryzen 7 9800X3D",
+          "low": 44649,
+          "high": 49349,
+          "matchedName": "AMD Ryzen 7 9800X3D",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "GPU": {
+          "candidateId": "gpu-5080",
+          "name": "GeForce RTX 5080",
+          "low": 175749,
+          "high": 194249,
+          "matchedName": "GeForce RTX 5080",
+          "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5080-graphics-card/inno3d-graphics-card-rtx-5080-x3-n50803-16d7-376068n",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Motherboard": {
+          "candidateId": "motherboard-x870e",
+          "name": "X870E AM5 motherboard",
+          "low": 22230,
+          "high": 24570,
+          "matchedName": "X870E AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/product/motherboard/amd-chipset-motherboard/x870-motherboard/msi-pro-x870e-s-evo-wifi-motherboard",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "RAM": {
+          "candidateId": "ram-64-ddr5",
+          "name": "64GB DDR5-6000",
+          "low": 175759,
+          "high": 194261,
+          "matchedName": "64GB DDR5-6000",
+          "sourceUrl": "https://www.amazon.in/CORSAIR-Vengeance-288-Pin-Desktop-CMK64GX5M2D6000C40/dp/B0FNRJV6FS",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Storage": {
+          "candidateId": "storage-2tb-nvme",
+          "name": "2TB NVMe SSD",
+          "low": 37073,
+          "high": 40977,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "PSU": {
+          "candidateId": "psu-1000-gold",
+          "name": "1000W 80+ Gold PSU",
+          "low": 18999,
+          "high": 20999,
+          "matchedName": "Corsair RMi",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Case": {
+          "candidateId": "case-premium-airflow",
+          "name": "Premium high-airflow case",
+          "low": 18990,
+          "high": 20990,
+          "matchedName": "Corsair 500D Premium",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-360-aio",
+          "name": "360mm AIO cooler",
+          "low": 30390,
+          "high": 33590,
+          "matchedName": "Gigabyte AORUS LIQUID COOLER 360",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        }
+      }
+    },
+    "275000": {
+      "budgetINR": 275000,
+      "budgetRangeINR": [
+        255000,
+        295000
+      ],
+      "totalINR": [
+        1158466,
+        1280414
+      ],
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
+      "components": {
+        "CPU": {
+          "candidateId": "cpu-9800x3d",
+          "name": "AMD Ryzen 7 9800X3D",
+          "low": 44649,
+          "high": 49349,
+          "matchedName": "AMD Ryzen 7 9800X3D",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "GPU": {
+          "candidateId": "gpu-5090",
+          "name": "GeForce RTX 5090",
+          "low": 800469,
+          "high": 884729,
+          "matchedName": "GeForce RTX 5090",
+          "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5090-graphics-card/inno3d-rtx5090-x3-oc-graphics-card-n50903-32d7x-37593928",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Motherboard": {
+          "candidateId": "motherboard-x870e",
+          "name": "X870E AM5 motherboard",
+          "low": 22230,
+          "high": 24570,
+          "matchedName": "X870E AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/product/motherboard/amd-chipset-motherboard/x870-motherboard/msi-pro-x870e-s-evo-wifi-motherboard",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "RAM": {
+          "candidateId": "ram-64-ddr5",
+          "name": "64GB DDR5-6000",
+          "low": 175759,
+          "high": 194261,
+          "matchedName": "64GB DDR5-6000",
+          "sourceUrl": "https://www.amazon.in/CORSAIR-Vengeance-288-Pin-Desktop-CMK64GX5M2D6000C40/dp/B0FNRJV6FS",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Storage": {
+          "candidateId": "storage-2tb-nvme",
+          "name": "2TB NVMe SSD",
+          "low": 37073,
+          "high": 40977,
+          "matchedName": "Gigabyte AORUS NVMe Gen4",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "PSU": {
+          "candidateId": "psu-1200-gold",
+          "name": "1200W 80+ Gold PSU",
+          "low": 25382,
+          "high": 28054,
+          "matchedName": "Thermaltake Toughpower",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Case": {
+          "candidateId": "case-super-tower",
+          "name": "Premium full-tower case",
+          "low": 22514,
+          "high": 24884,
+          "matchedName": "Premium full-tower case",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/7000d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-360-aio",
+          "name": "360mm AIO cooler",
+          "low": 30390,
+          "high": 33590,
+          "matchedName": "Gigabyte AORUS LIQUID COOLER 360",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        }
+      }
+    },
+    "330000": {
+      "budgetINR": 330000,
+      "budgetRangeINR": [
+        310000,
+        350000
+      ],
+      "totalINR": [
+        1188592,
+        1313712
+      ],
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
+      "components": {
+        "CPU": {
+          "candidateId": "cpu-9800x3d",
+          "name": "AMD Ryzen 7 9800X3D",
+          "low": 44649,
+          "high": 49349,
+          "matchedName": "AMD Ryzen 7 9800X3D",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "GPU": {
+          "candidateId": "gpu-5090",
+          "name": "GeForce RTX 5090",
+          "low": 800469,
+          "high": 884729,
+          "matchedName": "GeForce RTX 5090",
+          "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5090-graphics-card/inno3d-rtx5090-x3-oc-graphics-card-n50903-32d7x-37593928",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Motherboard": {
+          "candidateId": "motherboard-x870e",
+          "name": "X870E AM5 motherboard",
+          "low": 22230,
+          "high": 24570,
+          "matchedName": "X870E AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/product/motherboard/amd-chipset-motherboard/x870-motherboard/msi-pro-x870e-s-evo-wifi-motherboard",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "RAM": {
+          "candidateId": "ram-64-ddr5",
+          "name": "64GB DDR5-6000",
+          "low": 175759,
+          "high": 194261,
+          "matchedName": "64GB DDR5-6000",
+          "sourceUrl": "https://www.amazon.in/CORSAIR-Vengeance-288-Pin-Desktop-CMK64GX5M2D6000C40/dp/B0FNRJV6FS",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Storage": {
+          "candidateId": "storage-4tb-nvme",
+          "name": "4TB NVMe SSD",
+          "low": 83240,
+          "high": 92004,
+          "matchedName": "4TB NVMe SSD",
+          "sourceUrl": "https://onlyssd.com/capacity/4-tb-ssd/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "PSU": {
+          "candidateId": "psu-1200-gold",
+          "name": "1200W 80+ Gold PSU",
+          "low": 25382,
+          "high": 28054,
+          "matchedName": "Thermaltake Toughpower",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Case": {
+          "candidateId": "case-super-tower",
+          "name": "Premium full-tower case",
+          "low": 22514,
+          "high": 24884,
+          "matchedName": "Premium full-tower case",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/7000d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-420-aio",
+          "name": "420mm AIO cooler",
+          "low": 14349,
+          "high": 15861,
+          "matchedName": "ARCTIC Liquid Freezer II 420",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "condition": "new"
+        }
+      }
+    },
+    "450000": {
+      "budgetINR": 450000,
+      "budgetRangeINR": [
+        430000,
+        470000
+      ],
+      "totalINR": [
+        1199309,
+        1325557
+      ],
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
+      "components": {
+        "CPU": {
+          "candidateId": "cpu-9800x3d",
+          "name": "AMD Ryzen 7 9800X3D",
+          "low": 44649,
+          "high": 49349,
+          "matchedName": "AMD Ryzen 7 9800X3D",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "GPU": {
+          "candidateId": "gpu-5090",
+          "name": "GeForce RTX 5090",
+          "low": 800469,
+          "high": 884729,
+          "matchedName": "GeForce RTX 5090",
+          "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5090-graphics-card/inno3d-rtx5090-x3-oc-graphics-card-n50903-32d7x-37593928",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Motherboard": {
+          "candidateId": "motherboard-x870e",
+          "name": "X870E AM5 motherboard",
+          "low": 22230,
+          "high": 24570,
+          "matchedName": "X870E AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/product/motherboard/amd-chipset-motherboard/x870-motherboard/msi-pro-x870e-s-evo-wifi-motherboard",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "RAM": {
+          "candidateId": "ram-64-ddr5",
+          "name": "64GB DDR5-6000",
+          "low": 175759,
+          "high": 194261,
+          "matchedName": "64GB DDR5-6000",
+          "sourceUrl": "https://www.amazon.in/CORSAIR-Vengeance-288-Pin-Desktop-CMK64GX5M2D6000C40/dp/B0FNRJV6FS",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Storage": {
+          "candidateId": "storage-4tb-nvme",
+          "name": "4TB NVMe SSD",
+          "low": 83240,
+          "high": 92004,
+          "matchedName": "4TB NVMe SSD",
+          "sourceUrl": "https://onlyssd.com/capacity/4-tb-ssd/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "PSU": {
+          "candidateId": "psu-1600-gold",
+          "name": "1600W 80+ Gold PSU",
+          "low": 36099,
+          "high": 39899,
+          "matchedName": "EVGA G2",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "Case": {
+          "candidateId": "case-super-tower",
+          "name": "Premium full-tower case",
+          "low": 22514,
+          "high": 24884,
+          "matchedName": "Premium full-tower case",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/7000d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "condition": "new"
+        },
+        "CPU Cooler": {
+          "candidateId": "cooler-420-aio",
+          "name": "420mm AIO cooler",
+          "low": 14349,
+          "high": 15861,
+          "matchedName": "ARCTIC Liquid Freezer II 420",
+          "sourceUrl": null,
+          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "condition": "new"
+        }
+      }
+    },
     "600000": {
       "budgetINR": 600000,
       "budgetRangeINR": [
@@ -337,6 +818,8 @@
         559022,
         617870
       ],
+      "withinBudget": true,
+      "budgetStatus": "in-range",
       "components": {
         "CPU": {
           "candidateId": "cpu-9800x3d",
@@ -421,10 +904,8 @@
       }
     }
   },
-  "unresolvedBuilds": [
-    "50000",
-    "80000",
-    "100000",
+  "unresolvedBuilds": [],
+  "outOfBandBuilds": [
     "150000",
     "200000",
     "275000",

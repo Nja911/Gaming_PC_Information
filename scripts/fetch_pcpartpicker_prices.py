@@ -150,10 +150,10 @@ def candidate_price(candidate: dict[str, Any], items: list[dict[str, Any]], sour
     matches.sort(key=lambda row: (-row[0], row[1]))
     best_score = matches[0][0]
     best_matches = [match for match in matches if match[0] == best_score]
-    prices = [match[1] for match in best_matches]
-    low, high = (min(prices), max(prices)) if len(set(prices)) > 1 else estimated_range(prices[0])
     _, _, item = min(best_matches, key=lambda row: row[1])
-    source_name = source_name if len(set(prices)) > 1 else f"{source_name} (±5% estimate)"
+    selected_price = min(match[1] for match in best_matches)
+    low, high = estimated_range(selected_price)
+    source_name = f"{source_name} (±5% estimate)"
     return {
         "candidateId": candidate["id"],
         "name": candidate["name"],
@@ -343,11 +343,10 @@ def choose_build(build_id: str, config: dict[str, Any], candidates: dict[str, di
 
     budget_range = config.get("budgetRangeINR", [base_budget - 20000, base_budget + 20000])
     within_budget = [entry for entry in combinations if budget_range[0] <= entry[2] <= budget_range[1]]
-    if not within_budget:
-        raise RuntimeError(f"No current combination fits {build_id} within ₹{budget_range[0]}–₹{budget_range[1]}")
+    candidates_in_scope = within_budget or combinations
 
     selection, total_low, total_high = max(
-        within_budget,
+        candidates_in_scope,
         key=lambda entry: (
             sum(item.get("performance", 0) for item in entry[0].values()),
             entry[0].get("GPU", {}).get("performance", 0),
@@ -361,6 +360,8 @@ def choose_build(build_id: str, config: dict[str, Any], candidates: dict[str, di
         "budgetINR": base_budget,
         "budgetRangeINR": budget_range,
         "totalINR": [total_low, total_high],
+        "withinBudget": bool(within_budget),
+        "budgetStatus": "in-range" if within_budget else "out-of-band",
         "components": {category: item["price"] for category, item in selection.items()},
     }
 
@@ -477,9 +478,12 @@ def build_snapshot(
     builds: dict[str, dict[str, Any]] = {}
     unresolved: list[str] = []
     unresolved_reasons: dict[str, str] = {}
+    out_of_band: list[str] = []
     for build_id, config in manifest["builds"].items():
         try:
             builds[build_id] = choose_build(build_id, config, candidates, prices, int(build_id))
+            if builds[build_id].get("budgetStatus") == "out-of-band":
+                out_of_band.append(build_id)
         except RuntimeError as error:
             unresolved.append(build_id)
             unresolved_reasons[build_id] = str(error)
@@ -488,6 +492,9 @@ def build_snapshot(
                 builds[build_id] = previous_build
     for build_id, reason in unresolved_reasons.items():
         print(f"Unresolved {build_id}: {reason}", file=sys.stderr, flush=True)
+    for build_id in out_of_band:
+        estimate = builds[build_id]["totalINR"]
+        print(f"Out-of-band {build_id}: current estimate ₹{estimate[0]}–₹{estimate[1]}", file=sys.stderr, flush=True)
     for build in builds.values():
         ensure_build_ranges(build)
     if not builds:
@@ -498,6 +505,7 @@ def build_snapshot(
         "checkedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "builds": builds,
         "unresolvedBuilds": unresolved,
+        "outOfBandBuilds": out_of_band,
     }
 
 

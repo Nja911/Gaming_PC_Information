@@ -1,5 +1,5 @@
 import type { BuildComponent, GamingPCBuild, Source } from "@/types";
-import { pricingSnapshot } from "@/content/pricing";
+import { getBuildPricing, pricingSnapshot } from "@/content/pricing";
 
 export const marketSources: Source[] = [
   { id: "md-cpu", name: "MDComputers CPU catalogue", type: "retailer", url: "https://mdcomputers.in/catalog/processor", accessedAt: "2026-08-30", supports: "Indian CPU retail prices and availability" },
@@ -61,7 +61,7 @@ export function makeBuild(tier: Tier): GamingPCBuild {
   const ranges: PriceRange[] = [...platformRanges, ...tier.ranges.slice(4)];
   const platformCondition = tier.used ? "used" : "new";
   const platformSources = tier.used ? ["getpc-used", "getpc-price"] : ["md-cpu", "md-gpu", "smartprix"];
-  const snapshotBuild = pricingSnapshot.builds[String(tier.budget)];
+  const snapshotBuild = getBuildPricing(String(tier.budget));
   const range: [number, number] = snapshotBuild?.budgetRangeINR ?? [tier.budget - 20000, tier.budget + 20000];
   const components = [
     part("CPU", tier.cpu, "The CPU is matched to the GPU target and platform budget; spending more here would reduce gaming performance elsewhere.", ranges[0], platformCondition, platformSources, tier.used ? "Estimated at 50% of the latest new-equivalent price; verify condition and warranty." : undefined),
