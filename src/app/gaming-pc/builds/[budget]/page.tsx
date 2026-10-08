@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { pageMetadata, generateArticleSchema, jsonLd, formatINR } from "@/lib/seo";
+import { pageMetadata, generateArticleSchema, jsonLd, formatINRRange } from "@/lib/seo";
 import { builds, getBuildBySlug, getAllBuildSlugs } from "@/content/builds";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SpecTable from "@/components/ui/SpecTable";
@@ -51,7 +51,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
       <Breadcrumbs
         items={[
           { name: "Gaming PC Builds", path: "/gaming-pc/builds" },
-          { name: formatINR(pricedBuild.currentBudgetINR), path: `/gaming-pc/builds/${build.slug}` },
+          { name: formatINRRange(pricedBuild.budgetRange ?? [build.budget - 20000, build.budget + 20000]), path: `/gaming-pc/builds/${build.slug}` },
         ]}
       />
 
@@ -63,14 +63,14 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
       </div>
       <p className="mb-8 text-xs text-dim">
         {pricedBuild.hasLivePricing
-          ? "New-part prices use the latest successful PCPartPicker snapshot; used-part estimates remain unchanged."
+          ? "New-part prices use the latest successful PCPartPicker snapshot; used platform parts use 50% of their matched new-equivalent price."
           : "No safe PCPartPicker match is available for this tier yet; existing editorial estimates are shown."}
       </p>
       {pricedBuild.targetResolutions && <p className="mb-8 text-sm text-dim">Target: <span className="text-paper">{pricedBuild.targetResolutions.join(" / ")}</span>{pricedBuild.targetFPS && <> · {pricedBuild.targetFPS}</>}</p>}
 
       {/* Quick summary + illustration */}
       <div className="mb-16 grid items-start gap-8 border-y border-line py-8 sm:grid-cols-[minmax(0,1fr)_18rem] sm:items-center">
-        <div className="min-w-0"><p className="mb-3 text-xs uppercase tracking-[.15em] text-accent">Build brief</p><p className="leading-relaxed">{pricedBuild.summary}</p><p className="mt-6 text-xs uppercase tracking-[.14em] text-dim">Current required budget</p><p className="readout mt-1 text-3xl text-accent">{formatINR(pricedBuild.currentBudgetINR)}</p></div>
+        <div className="min-w-0"><p className="mb-3 text-xs uppercase tracking-[.15em] text-accent">Build brief</p><p className="leading-relaxed">{pricedBuild.summary}</p><p className="mt-6 text-xs uppercase tracking-[.14em] text-dim">Target budget range</p><p className="readout mt-1 text-3xl text-accent">{formatINRRange(pricedBuild.budgetRange ?? [build.budget - 20000, build.budget + 20000])}</p><p className="mt-2 text-sm text-dim">Current parts estimate: {formatINRRange(pricedBuild.currentTotalINR)}</p></div>
         <Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower used to illustrate a gaming PC build" width={768} height={512} className="aspect-[3/2] h-auto w-full object-cover" />
       </div>
 
@@ -132,7 +132,7 @@ export default async function BuildPage({ params }: { params: Promise<{ budget: 
         {related.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={related.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={related.map((b) => ({ label: `${formatINRRange(b.budgetRange ?? [b.budget - 20000, b.budget + 20000])} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={build.relatedGuides} />

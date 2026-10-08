@@ -62,7 +62,7 @@ export const amdVsIntel: Comparison = {
         "The whole platform — motherboard pricing, RAM type required, and upgrade path all affect the real cost and value of a CPU choice, not just the chip's own price.",
     },
   ],
-  relatedBuilds: ["75000", "100000"],
+  relatedBuilds: ["80000", "100000"],
   relatedGuides: [{ label: "CPU buying guide", href: "/components/cpu" }],
   lastUpdated: "2026-08-01",
 };

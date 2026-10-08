@@ -1,3 +1,4 @@
+import json
 import sys
 import tempfile
 import unittest
@@ -5,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from fetch_pcpartpicker_prices import candidate_price, choose_build, compatible, refresh_snapshot, to_inr
+from fetch_pcpartpicker_prices import apply_price_mode, candidate_price, choose_build, compatible, manual_price, refresh_snapshot, to_inr
 
 
 class PricingUpdaterTests(unittest.TestCase):
@@ -23,47 +24,84 @@ class PricingUpdaterTests(unittest.TestCase):
         self.assertIsNotNone(match)
         self.assertEqual(match["low"], 5500)
 
+    def test_candidate_matching_allows_missing_vendor_token_and_split_model_name(self):
+        candidate = {"id": "cpu", "query": ["AMD", "9800X3D"], "name": "AMD Ryzen 7 9800X3D"}
+        items = [{"model": "Ryzen 7 9800 X3D", "price": ["INR", "50000"]}]
+        self.assertIsNotNone(candidate_price(candidate, items))
+
+    def test_candidate_matching_keeps_gpu_suffixes_exact(self):
+        candidate = {"id": "gpu", "query": ["RX", "7900", "XT"], "name": "Radeon RX 7900 XT"}
+        items = [{"model": "Radeon RX 7900 XTX", "price": ["INR", "100000"]}]
+        self.assertIsNone(candidate_price(candidate, items))
+
+    def test_gpu_matching_accepts_vendor_sku_family_number(self):
+        candidate = {"id": "gpu", "category": "GPU", "query": ["RTX", "5090"], "name": "GeForce RTX 5090"}
+        items = [{"brand": "Zotac", "model": "ZT-50901-10M", "price": ["USD", "1500"]}]
+        self.assertIsNotNone(candidate_price(candidate, items))
+
     def test_zero_price_is_not_a_safe_match(self):
         candidate = {"id": "storage", "query": ["1TB", "NVMe"], "name": "1TB NVMe SSD"}
         self.assertIsNone(candidate_price(candidate, [{"brand": "A", "model": "1TB NVMe", "price": ["INR", "0"]}]))
 
+    def test_used_platform_price_is_half_of_new_equivalent(self):
+        price = {"candidateId": "cpu", "low": 12000, "high": 14000, "condition": "new"}
+        used = apply_price_mode(price, "used")
+        self.assertEqual((used["low"], used["high"]), (6000, 7000))
+        self.assertEqual(used["originalPriceINR"], [12000, 14000])
+        self.assertEqual(apply_price_mode(price, "new")["low"], 12000)
+
+    def test_manual_price_is_new_and_keeps_source(self):
+        candidate = {"id": "cpu", "name": "AMD Ryzen 7 9800X3D"}
+        price = manual_price(candidate, {"cpu": {"priceINR": 46999, "sourceUrl": "https://example.com"}})
+        self.assertEqual(price["low"], 46999)
+        self.assertEqual(price["condition"], "new")
+        self.assertEqual(price["sourceUrl"], "https://example.com")
+
     def test_incompatible_gpu_and_psu_are_rejected(self):
-        selection = {
-            "GPU": {"minPsu": 750},
-            "PSU": {"wattage": 650},
-        }
+        selection = {"GPU": {"minPsu": 750}, "PSU": {"wattage": 650}}
         self.assertFalse(compatible(selection, {"minPsu": 650}))
 
-    def test_optimizer_can_replace_a_new_part_and_rounds_budget(self):
+    def test_optimizer_selects_best_valid_combination_inside_band(self):
         candidates = {
             "slow": {"id": "slow", "category": "Storage", "performance": 1},
             "fast": {"id": "fast", "category": "Storage", "performance": 2},
         }
         prices = {
-            "slow": {"candidateId": "slow", "low": 1000, "high": 1000},
-            "fast": {"candidateId": "fast", "low": 2400, "high": 2400},
+            "slow": {"candidateId": "slow", "low": 45000, "high": 45000, "condition": "new"},
+            "fast": {"candidateId": "fast", "low": 50000, "high": 50000, "condition": "new"},
         }
         result = choose_build(
             "50000",
-            {"fixedTotalINR": [0, 0], "minPsu": 0, "allowed": {"Storage": ["slow", "fast"]}},
+            {"budgetRangeINR": [30000, 70000], "minPsu": 0, "allowed": {"Storage": ["slow", "fast"]}},
             candidates,
             prices,
             50000,
         )
         self.assertEqual(result["components"]["Storage"]["candidateId"], "fast")
-        self.assertEqual(result["requiredBudgetINR"], 50000)
+        self.assertEqual(result["budgetINR"], 50000)
+        self.assertEqual(result["budgetRangeINR"], [30000, 70000])
 
-    def test_expensive_new_parts_raise_required_budget(self):
+    def test_combination_above_upper_band_is_rejected(self):
         candidates = {"part": {"id": "part", "category": "Storage", "performance": 1}}
-        prices = {"part": {"candidateId": "part", "low": 50001, "high": 50001}}
-        result = choose_build(
-            "50000",
-            {"fixedTotalINR": [0, 0], "minPsu": 0, "allowed": {"Storage": ["part"]}},
-            candidates,
-            prices,
-            50000,
-        )
-        self.assertEqual(result["requiredBudgetINR"], 55000)
+        prices = {"part": {"candidateId": "part", "low": 70001, "high": 70001, "condition": "new"}}
+        with self.assertRaisesRegex(RuntimeError, "fits"):
+            choose_build(
+                "50000",
+                {"budgetRangeINR": [30000, 70000], "minPsu": 0, "allowed": {"Storage": ["part"]}},
+                candidates,
+                prices,
+                50000,
+            )
+
+    def test_active_route_manifest_has_exact_budget_list(self):
+        manifest = json.loads(Path(__file__).parents[1].joinpath("src/content/pricing/targets.json").read_text(encoding="utf-8"))
+        self.assertEqual(list(manifest["builds"]), ["50000", "80000", "100000", "150000", "200000", "275000", "330000", "450000", "600000"])
+
+    def test_active_route_manifest_uses_twenty_thousand_budget_band(self):
+        manifest = json.loads(Path(__file__).parents[1].joinpath("src/content/pricing/targets.json").read_text(encoding="utf-8"))
+        for build_id, config in manifest["builds"].items():
+            budget = int(build_id)
+            self.assertEqual(config["budgetRangeINR"], [budget - 20000, budget + 20000])
 
     def test_failed_refresh_preserves_existing_snapshot(self):
         class BrokenAPI:
@@ -76,10 +114,7 @@ class PricingUpdaterTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 refresh_snapshot(
                     BrokenAPI(),
-                    {
-                        "candidates": [{"id": "x", "category": "Storage", "query": ["x"], "name": "x"}],
-                        "builds": {"50000": {"fixedTotalINR": [0, 0], "minPsu": 0, "allowed": {"Storage": ["x"]}}},
-                    },
+                    {"candidates": [{"id": "x", "category": "Storage", "query": ["x"], "name": "x"}], "builds": {"50000": {"budgetRangeINR": [30000, 70000], "minPsu": 0, "allowed": {"Storage": ["x"]}}}},
                     output,
                 )
             self.assertEqual(output.read_text(encoding="utf-8"), "previous")

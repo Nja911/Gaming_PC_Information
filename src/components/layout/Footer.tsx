@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
+import { SITE_NAME, SITE_DESCRIPTION, formatINRRange } from "@/lib/seo";
 import { builds } from "@/content/builds";
 import { componentCategories } from "@/content/components";
 
 const COLUMNS = [
-  { title: "01 / Builds", links: [{ label: "All builds", href: "/gaming-pc/builds" }, ...builds.map((b) => ({ label: `₹${b.budget.toLocaleString("en-IN")}`, href: `/gaming-pc/builds/${b.slug}` }))] },
+  { title: "01 / Builds", links: [{ label: "All builds", href: "/gaming-pc/builds" }, ...builds.map((b) => ({ label: formatINRRange(b.budgetRange ?? [b.budget - 20000, b.budget + 20000]), href: `/gaming-pc/builds/${b.slug}` }))] },
   { title: "02 / Hardware", links: componentCategories.map((category) => ({ label: category.shortName, href: `/components/${category.slug}` })) },
   { title: "03 / Gaming", links: [{ label: "1080p", href: "/guides/1080p-gaming" }, { label: "1440p", href: "/guides/1440p-gaming" }, { label: "4K", href: "/guides/4k-gaming" }, { label: "Guides index", href: "/guides" }, { label: "Comparisons", href: "/comparisons" }] },
 ];

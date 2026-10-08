@@ -131,9 +131,10 @@ content model.
 
 ### Refreshing new-part recommendations
 
-The optional snapshot updater uses PCPartPicker's India catalogue and changes
-only new-part recommendations. Used-part selections and prices remain in the
-typed build content.
+The optional snapshot updater uses PCPartPicker's India catalogue. It refreshes
+new parts directly and estimates used CPU, GPU, motherboard and RAM at 50% of
+their matched new-equivalent price. Every route is constrained to its ±₹20,000
+budget band; storage, PSU, case and cooler remain new.
 
 ```bash
 python -m venv .venv
@@ -141,10 +142,22 @@ python -m venv .venv
 .venv\Scripts\python scripts/fetch_pcpartpicker_prices.py
 ```
 
+The default command refreshes the India catalogue only. The older wrapper's US
+catalogue is much slower to parse, so use the optional fallback when needed:
+
+```bash
+.venv\Scripts\python scripts/fetch_pcpartpicker_prices.py --with-us-fallback
+```
+
 The updater writes `src/content/pricing/latest.json` atomically. If fetching or
-matching fails, the previous snapshot is preserved. Build URLs remain anchored
-to their original tier, while the displayed current required budget is rounded
-up to the nearest ₹5,000.
+matching fails, the previous valid snapshot is preserved. A tier with no safe
+combination inside its budget band is marked unresolved instead of being
+published above the band. Pressing Ctrl+C also preserves the previous snapshot.
+
+The manually supplied rough fallback prices are stored in
+`src/content/pricing/manual-overrides.json`. They are used only when India and
+optional USD PCPartPicker matches have no usable non-zero price; live matches
+take priority.
 
 ## Local development
 

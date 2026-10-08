@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = pageMetadata({
   title: "Gaming PC Builds by Budget — India",
   description:
-    "Browse researched Indian gaming PC builds from ₹40,000 esports rigs to ₹2,50,000 4K high-refresh systems, with current price evidence and full component reasoning.",
+    "Browse researched Indian gaming PC builds from ₹50,000 esports rigs to ₹6,00,000 4K high-refresh systems, with strict budget bands, current price evidence and full component reasoning.",
   path: "/gaming-pc/builds",
 });
 

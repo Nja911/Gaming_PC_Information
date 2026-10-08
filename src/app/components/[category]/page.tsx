@@ -7,7 +7,7 @@ import { resolveBuild } from "@/lib/pricing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FAQ from "@/components/ui/FAQ";
 import { RelatedContent, LastUpdated, Sources } from "@/components/ui/Meta";
-import { formatINR } from "@/lib/seo";
+import { formatINRRange } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getAllComponentSlugs().map((category) => ({ category }));
@@ -106,7 +106,7 @@ export default async function ComponentCategoryPage({ params }: { params: Promis
         {relatedBuilds.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={relatedBuilds.map((b) => ({ label: `${formatINRRange(b.budgetRange ?? [b.budget - 20000, b.budget + 20000])} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={category.relatedGuides} />

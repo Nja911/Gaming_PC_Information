@@ -34,7 +34,7 @@ export const guide1080p: Guide = {
         "144Hz is a sensible baseline for competitive titles at this resolution, since even budget-tier GPUs can often exceed 100fps in esports games.",
     },
   ],
-  relatedBuilds: ["50000", "75000"],
+  relatedBuilds: ["50000", "80000"],
   relatedGuides: [{ label: "1440p gaming guide", href: "/guides/1440p-gaming" }],
   relatedComponents: [
     { label: "best GPU for 1080p gaming", href: "/components/gpu" },

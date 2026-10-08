@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { pageMetadata, formatINR } from "@/lib/seo";
+import { pageMetadata, formatINRRange } from "@/lib/seo";
 import { builds } from "@/content/builds";
 import { componentCategories } from "@/content/components";
 import { guides } from "@/content/guides";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-  { question: "What is the best gaming PC budget in India?", answer: "There is no single right answer. ₹40,000–₹1,00,000 covers value-focused AM4 builds, while ₹1,25,000–₹2,50,000 moves into new AM5 systems for high-refresh 1440p and 4K. Pick based on your target resolution, games and tolerance for used parts." },
+  { question: "What is the best gaming PC budget in India?", answer: "There is no single right answer. ₹50,000–₹1,00,000 covers value-focused AM4 builds, while ₹1,50,000–₹6,00,000 moves into new AM5 systems for high-refresh 1440p and 4K. Pick based on your target resolution, games and tolerance for used parts." },
   { question: "Should I build my own PC or buy pre-built?", answer: "Building your own generally gets you better component quality for the same money and makes future upgrades easier. Pre-built can make sense when a whole-system warranty matters more than flexibility." },
   { question: "How often should I upgrade a gaming PC?", answer: "A well-chosen GPU tends to stay relevant for two to four years. The rest of the platform often lasts through more than one GPU upgrade when chosen with headroom." },
   { question: "Are the prices exact?", answer: "No. Build prices are approximate estimates and can change with retailer, region, stock and promotions. Check the linked product source before buying." },
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="divide-y divide-line border-t border-line">
           {pricedBuilds.map((build, index) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="index-row group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-2 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_10rem_auto] sm:gap-5">
             <span className="index-number font-mono text-xs text-dim">{String(index + 1).padStart(2, "0")}</span>
-            <span className="min-w-0"><span className="block font-display text-3xl transition-colors group-hover:text-accent sm:text-5xl">{formatINR(build.currentBudgetINR)}</span>{build.currentBudgetINR !== build.budget && <span className="mt-1 block text-xs text-dim">{formatINR(build.budget)} tier</span>}</span>
+            <span className="min-w-0"><span className="block font-display text-3xl transition-colors group-hover:text-accent sm:text-5xl">{formatINRRange(build.budgetRange ?? [build.budget - 20000, build.budget + 20000])}</span></span>
             <span className="hidden text-xs uppercase tracking-[.14em] text-dim sm:block">{build.targetResolutions?.join(" / ") ?? build.targetResolution}</span>
             <span className="text-lg text-accent" aria-hidden="true">↗</span>
           </Link>)}
@@ -88,14 +88,14 @@ export default function HomePage() {
           <Image src="/images/graphics-card-feature.png" alt="Close-up of a triple-fan graphics card for a gaming PC build" fill className="feature-image object-cover" sizes="(max-width: 1024px) 100vw, 65vw" />
         </div>
         <div className="flex flex-col justify-between gap-10">
-          <div><p className="section-kicker mb-4">{leadBuild.targetResolutions?.join(" / ")}</p><h3 className="font-display text-4xl leading-[.92] sm:text-6xl">{leadBuild.title.replace("Best Gaming PC Under ", "")}</h3><p className="mt-6 max-w-md text-sm leading-relaxed text-dim">{leadBuild.intro}</p></div>
-          <div className="grid grid-cols-2 gap-5"><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">GPU</span><span className="mt-2 block text-sm leading-snug">{gpuFor(leadBuild)}</span></div><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">CPU</span><span className="mt-2 block text-sm leading-snug">{cpuFor(leadBuild)}</span></div><div className="product-stat col-span-2"><span className="block text-xs uppercase tracking-[.12em] text-dim">Current required budget</span><span className="readout mt-2 block text-3xl text-accent">{formatINR(leadBuild.currentBudgetINR)}</span></div></div>
+          <div><p className="section-kicker mb-4">{leadBuild.targetResolutions?.join(" / ")}</p><h3 className="font-display text-4xl leading-[.92] sm:text-6xl">{leadBuild.title.replace("Best Gaming PC Around ", "")}</h3><p className="mt-6 max-w-md text-sm leading-relaxed text-dim">{leadBuild.intro}</p></div>
+          <div className="grid grid-cols-2 gap-5"><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">GPU</span><span className="mt-2 block text-sm leading-snug">{gpuFor(leadBuild)}</span></div><div className="product-stat"><span className="block text-xs uppercase tracking-[.12em] text-dim">CPU</span><span className="mt-2 block text-sm leading-snug">{cpuFor(leadBuild)}</span></div><div className="product-stat col-span-2"><span className="block text-xs uppercase tracking-[.12em] text-dim">Target budget range</span><span className="readout mt-2 block text-3xl text-accent">{formatINRRange(leadBuild.budgetRange ?? [leadBuild.budget - 20000, leadBuild.budget + 20000])}</span></div></div>
         </div>
       </Link>
       <div className="mt-16 grid gap-8 border-t border-line pt-6 md:grid-cols-2">
         {[secondBuild, pricedBuilds[6] ?? pricedBuilds[2]].map((build) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="group grid gap-5 sm:grid-cols-[10rem_1fr]">
           <div className="product-frame relative aspect-square overflow-hidden"><Image src="/images/gaming-pc-hero.png" alt="Charcoal gaming PC tower with a glass side panel" fill className="feature-image object-cover" sizes="(max-width: 640px) 100vw, 10rem" /></div>
-          <div><p className="section-kicker mb-3">{build.targetResolution} · {formatINR(build.currentBudgetINR)}</p><h3 className="font-display text-3xl leading-[.92] transition-colors group-hover:text-accent">{build.title.replace("Best Gaming PC Under ", "")}</h3><p className="mt-4 text-sm leading-relaxed text-dim">{gpuFor(build)}</p></div>
+          <div><p className="section-kicker mb-3">{build.targetResolution} · {formatINRRange(build.budgetRange ?? [build.budget - 20000, build.budget + 20000])}</p><h3 className="font-display text-3xl leading-[.92] transition-colors group-hover:text-accent">{build.title.replace("Best Gaming PC Around ", "")}</h3><p className="mt-4 text-sm leading-relaxed text-dim">{gpuFor(build)}</p></div>
         </Link>)}
       </div>
     </section>

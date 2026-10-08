@@ -57,7 +57,7 @@ export const nvidiaVsAmdGpu: Comparison = {
         "No — VRAM capacity prevents stuttering from running out of memory at a given resolution and settings, but it doesn't substitute for the underlying GPU's raw performance.",
     },
   ],
-  relatedBuilds: ["75000", "100000", "150000"],
+  relatedBuilds: ["80000", "100000", "150000"],
   relatedGuides: [{ label: "GPU buying guide", href: "/components/gpu" }],
   lastUpdated: "2026-08-01",
 };

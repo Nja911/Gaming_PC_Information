@@ -8,7 +8,7 @@ export interface ResolvedGamingPCBuild extends GamingPCBuild {
 }
 
 function resolveComponent(component: BuildComponent, live: LiveComponentPrice | undefined, checkedAt: string): BuildComponent {
-  if (component.condition !== "new" || !live) return component;
+  if (!live || component.condition !== live.condition) return component;
 
   return {
     ...component,
@@ -20,6 +20,8 @@ function resolveComponent(component: BuildComponent, live: LiveComponentPrice | 
       checkedAt,
       sourceName: live.sourceName,
       sourceUrl: live.sourceUrl,
+      condition: live.condition,
+      originalPriceINR: live.originalPriceINR,
     },
   };
 }
@@ -49,9 +51,10 @@ export function resolveBuild(build: GamingPCBuild): ResolvedGamingPCBuild {
     ...build,
     components: resolved,
     summary: currentSummary,
-    currentBudgetINR: pricing.requiredBudgetINR,
+    currentBudgetINR: pricing.budgetINR,
     currentTotalINR: pricing.totalINR,
     hasLivePricing: Object.keys(pricing.components).length > 0,
+    budgetRange: pricing.budgetRangeINR,
     pricesChecked: pricingSnapshot.checkedAt,
   };
 }

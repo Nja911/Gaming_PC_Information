@@ -16,7 +16,7 @@ export const cpu: ComponentCategory = {
     "Stock cooling included or not, and whether it's sufficient for the chip's power draw under sustained gaming load.",
   ],
   budgetTiers: [
-    { tier: "Entry (6-core, previous-gen platform)", guidance: "Pairs well with 6–8GB-class GPUs — see the ₹50,000–75,000 builds." },
+    { tier: "Entry (6-core, previous-gen platform)", guidance: "Pairs well with 6–8GB-class GPUs — see the ₹50,000–80,000 builds." },
     { tier: "Value ceiling (8-core, used AM4)", guidance: "A 5700X3D-class used chip pairs with a 12GB–16GB GPU while keeping the ₹1,00,000 build affordable." },
     { tier: "Upper mid-range (8-core)", guidance: "Removes CPU bottlenecks for 16GB-class GPUs — see the ₹1,50,000 build." },
   ],
@@ -47,7 +47,7 @@ export const cpu: ComponentCategory = {
         "For raw frame rates at higher resolutions, yes, the GPU usually matters more. At 1080p and in CPU-heavy titles, the CPU can matter just as much.",
     },
   ],
-  relatedBuilds: ["50000", "75000", "100000", "150000"],
+  relatedBuilds: ["50000", "80000", "100000", "150000"],
   relatedGuides: [{ label: "1080p gaming guide", href: "/guides/1080p-gaming" }],
   lastUpdated: "2026-08-30",
 };

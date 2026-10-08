@@ -15,6 +15,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      { source: "/gaming-pc/builds/40000", destination: "/gaming-pc/builds/50000", permanent: true },
+      { source: "/gaming-pc/builds/60000", destination: "/gaming-pc/builds/80000", permanent: true },
+      { source: "/gaming-pc/builds/75000", destination: "/gaming-pc/builds/80000", permanent: true },
+      { source: "/gaming-pc/builds/125000", destination: "/gaming-pc/builds/150000", permanent: true },
+      { source: "/gaming-pc/builds/250000", destination: "/gaming-pc/builds/275000", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

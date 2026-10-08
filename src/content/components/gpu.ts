@@ -18,7 +18,7 @@ export const gpu: ComponentCategory = {
   ],
   budgetTiers: [
     { tier: "Budget (6GB-class)", guidance: "1080p esports and medium-settings AAA gaming — see the ₹50,000 build." },
-    { tier: "Mid-range (8GB-class)", guidance: "High-settings 1080p and usable 1440p — see the ₹75,000 build." },
+    { tier: "Mid-range (8GB-class)", guidance: "High-settings 1080p and usable 1440p — see the ₹80,000 build." },
     { tier: "Upper mid-range (12GB–16GB used)", guidance: "Comfortable 1440p as a primary target using used AM4 value parts — see the ₹1,00,000 build." },
     { tier: "High-end (16GB-class)", guidance: "Maxed 1440p and genuinely playable 4K — see the ₹1,50,000 build." },
   ],
@@ -49,7 +49,7 @@ export const gpu: ComponentCategory = {
         "It can be good value from a trustworthy seller with some warranty remaining, but verify the card wasn't used for sustained mining and check return terms before buying.",
     },
   ],
-  relatedBuilds: ["50000", "75000", "100000", "150000"],
+  relatedBuilds: ["50000", "80000", "100000", "150000"],
   relatedGuides: [
     { label: "1440p gaming guide", href: "/guides/1440p-gaming" },
     { label: "1080p gaming guide", href: "/guides/1080p-gaming" },

@@ -136,3 +136,7 @@ export function formatINR(amount: number): string {
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
+export function formatINRRange(range: [number, number]): string {
+  return `${formatINR(range[0])}–${formatINR(range[1])}`;
+}

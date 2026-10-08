@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { pageMetadata, generateArticleSchema, jsonLd, formatINR } from "@/lib/seo";
+import { pageMetadata, generateArticleSchema, jsonLd, formatINRRange } from "@/lib/seo";
 import { getComparisonBySlug, getAllComparisonSlugs } from "@/content/comparisons";
 import { builds } from "@/content/builds";
 import { resolveBuild } from "@/lib/pricing";
@@ -72,7 +72,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         {relatedBuilds.length > 0 && (
           <RelatedContent
             title="Related builds"
-            links={relatedBuilds.map((b) => ({ label: `${formatINR(b.currentBudgetINR)} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
+            links={relatedBuilds.map((b) => ({ label: `${formatINRRange(b.budgetRange ?? [b.budget - 20000, b.budget + 20000])} gaming PC build`, href: `/gaming-pc/builds/${b.slug}` }))}
           />
         )}
         <RelatedContent title="Related guides" links={comparison.relatedGuides} />

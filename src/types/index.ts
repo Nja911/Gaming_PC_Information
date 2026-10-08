@@ -36,6 +36,8 @@ export interface BuildComponent {
     checkedAt: string;
     sourceName: string;
     sourceUrl?: string | null;
+    condition?: "new" | "used";
+    originalPriceINR?: [number, number];
   };
 }
 
@@ -47,10 +49,14 @@ export interface LiveComponentPrice {
   matchedName: string;
   sourceUrl?: string | null;
   sourceName: string;
+  condition: "new" | "used";
+  originalPriceINR?: [number, number];
+  usedFactor?: number;
 }
 
 export interface BuildPriceRecommendation {
-  requiredBudgetINR: number;
+  budgetINR: number;
+  budgetRangeINR: [number, number];
   totalINR: [number, number];
   components: Partial<Record<BuildComponent["category"], LiveComponentPrice>>;
 }
