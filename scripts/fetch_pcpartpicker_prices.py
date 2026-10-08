@@ -421,6 +421,12 @@ def build_snapshot(
     missing: list[str] = []
     for candidate_id in needed:
         candidate = candidates[candidate_id]
+        override = (manual_overrides or {}).get(candidate_id)
+        if isinstance(override, dict) and override.get("force"):
+            match = manual_price(candidate, manual_overrides or {})
+            if match:
+                prices[candidate_id] = match
+                continue
         match = candidate_price(candidate, catalogs[CATEGORY_TYPES[candidate["category"]]])
         if match:
             prices[candidate_id] = match

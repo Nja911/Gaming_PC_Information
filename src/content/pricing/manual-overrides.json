@@ -7,6 +7,7 @@
   "gpu-4070": { "priceINR": 112785, "sourceUrl": "https://gpuprix.com/zh/india/gpus/geforce-rtx-4070" },
   "gpu-4080": { "priceINR": 234262, "sourceUrl": "https://gpuprix.com/in/gpus/geforce-rtx-4080" },
   "gpu-4090": { "priceINR": 349999, "sourceUrl": "https://gpuprix.com/zh/india/gpus/geforce-rtx-4090" },
+  "gpu-5070": { "priceINR": 70098, "rangeINR": [70000, 105000], "force": true, "sourceName": "PrimeABGB RTX 5070 listings (stock-dependent)", "sourceUrl": "https://www.primeabgb.com/graphic-card-series/rtx-5070/" },
   "gpu-5070ti": { "priceINR": 152299, "sourceUrl": "https://mdcomputers.in/product/gigabyte-windforce-graphics-card-gv-n507twf3oc-16gd/graphics-card/nvidia/rtx-50-graphics-card/rtx-5070-graphics-card" },
   "gpu-5080": { "priceINR": 184999, "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5080-graphics-card/inno3d-graphics-card-rtx-5080-x3-n50803-16d7-376068n" },
   "gpu-5090": { "priceINR": 842599, "sourceUrl": "https://mdcomputers.in/product/graphics-card/nvidia/rtx-50-graphics-card/rtx-5090-graphics-card/inno3d-rtx5090-x3-oc-graphics-card-n50903-32d7x-37593928" },

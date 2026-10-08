@@ -69,6 +69,11 @@ class PricingUpdaterTests(unittest.TestCase):
         self.assertEqual(price["condition"], "new")
         self.assertEqual(price["sourceUrl"], "https://example.com")
 
+    def test_forced_manual_price_beats_catalog_match(self):
+        candidate = {"id": "gpu", "category": "GPU", "query": ["RTX", "5070"], "name": "GeForce RTX 5070"}
+        forced = {"gpu": {"priceINR": 70098, "rangeINR": [70000, 105000], "force": True}}
+        self.assertEqual(manual_price(candidate, forced)["low"], 70000)
+
     def test_retailer_price_uses_provider_metadata(self):
         candidate = {"id": "cpu", "name": "AMD Ryzen 5 5600"}
         price = manual_price(

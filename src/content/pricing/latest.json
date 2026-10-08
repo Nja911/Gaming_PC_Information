@@ -6,7 +6,7 @@
     "fallbackRegion": "us",
     "usdToInr": 95
   },
-  "checkedAt": "2026-10-08T20:58:41+00:00",
+  "checkedAt": "2026-10-08T21:04:56+00:00",
   "builds": {
     "50000": {
       "budgetINR": 50000,
@@ -340,8 +340,8 @@
         170000
       ],
       "totalINR": [
-        144537,
-        159757
+        140303,
+        155077
       ],
       "withinBudget": true,
       "budgetStatus": "in-range",
@@ -357,13 +357,13 @@
           "condition": "new"
         },
         "GPU": {
-          "candidateId": "gpu-5070",
-          "name": "GeForce RTX 5070",
-          "low": 31911,
-          "high": 35271,
-          "matchedName": "Zotac ZT-50702-10M",
-          "sourceUrl": null,
-          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "candidateId": "gpu-rx7600",
+          "name": "Radeon RX 7600",
+          "low": 33062,
+          "high": 36544,
+          "matchedName": "Radeon RX 7600",
+          "sourceUrl": "https://mdcomputers.in/product/asus-dual-graphics-card-rx7600-o8g-evo/graphics-card/radeon-graphics-card/radeon-rx-7000-graphics-card",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "Motherboard": {
@@ -397,11 +397,11 @@
           "condition": "new"
         },
         "PSU": {
-          "candidateId": "psu-750-gold",
-          "name": "750W 80+ Gold PSU",
-          "low": 6924,
-          "high": 7654,
-          "matchedName": "Gigabyte P GM",
+          "candidateId": "psu-650-bronze",
+          "name": "650W 80+ Bronze PSU",
+          "low": 5224,
+          "high": 5774,
+          "matchedName": "Gigabyte P-B",
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
@@ -415,16 +415,6 @@
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
-        },
-        "CPU Cooler": {
-          "candidateId": "cooler-tower",
-          "name": "Tower air cooler",
-          "low": 3685,
-          "high": 4073,
-          "matchedName": "Tower air cooler",
-          "sourceUrl": "https://price-history.in/product/thermalright-peerless-assassin-120-se-v-VBYGzPyp",
-          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
-          "condition": "new"
         }
       }
     },
@@ -435,30 +425,30 @@
         220000
       ],
       "totalINR": [
-        184808,
-        204268
+        197766,
+        218588
       ],
       "withinBudget": true,
       "budgetStatus": "in-range",
       "components": {
         "CPU": {
-          "candidateId": "cpu-9800x3d",
-          "name": "AMD Ryzen 7 9800X3D",
-          "low": 44649,
-          "high": 49349,
-          "matchedName": "AMD Ryzen 7 9800X3D",
-          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
-          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
+          "candidateId": "cpu-7600",
+          "name": "AMD Ryzen 5 7600",
+          "low": 20899,
+          "high": 23099,
+          "matchedName": "AMD Ryzen 5 7600",
+          "sourceUrl": "https://getpc.co.in/parts/cpu/ryzen-5-7600",
+          "sourceName": "GetPC live retailer price",
           "condition": "new"
         },
         "GPU": {
-          "candidateId": "gpu-5070",
-          "name": "GeForce RTX 5070",
-          "low": 31911,
-          "high": 35271,
-          "matchedName": "Zotac ZT-50702-10M",
-          "sourceUrl": null,
-          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "candidateId": "gpu-9070",
+          "name": "Radeon RX 9070",
+          "low": 74004,
+          "high": 81794,
+          "matchedName": "Radeon RX 9070",
+          "sourceUrl": "https://mdcomputers.in/product/asrock-challenger-graphics-card-rx9070-cl-16g/graphics-card/radeon-graphics-card/radeon-rx-9000-graphics-card",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "Motherboard": {
@@ -492,11 +482,11 @@
           "condition": "new"
         },
         "PSU": {
-          "candidateId": "psu-750-gold",
-          "name": "750W 80+ Gold PSU",
-          "low": 6924,
-          "high": 7654,
-          "matchedName": "Gigabyte P GM",
+          "candidateId": "psu-650-bronze",
+          "name": "650W 80+ Bronze PSU",
+          "low": 5224,
+          "high": 5774,
+          "matchedName": "Gigabyte P-B",
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
@@ -509,16 +499,6 @@
           "matchedName": "Corsair iCUE 220T RGB Airflow",
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
-          "condition": "new"
-        },
-        "CPU Cooler": {
-          "candidateId": "cooler-tower",
-          "name": "Tower air cooler",
-          "low": 3685,
-          "high": 4073,
-          "matchedName": "Tower air cooler",
-          "sourceUrl": "https://price-history.in/product/thermalright-peerless-assassin-120-se-v-VBYGzPyp",
-          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         }
       }
