@@ -6,7 +6,7 @@
     "fallbackRegion": "us",
     "usdToInr": 95
   },
-  "checkedAt": "2026-10-08T20:41:03+00:00",
+  "checkedAt": "2026-10-08T20:52:51+00:00",
   "builds": {
     "50000": {
       "budgetINR": 50000,
@@ -120,11 +120,11 @@
         100000
       ],
       "totalINR": [
-        56778,
-        62758
+        91067,
+        100658
       ],
-      "withinBudget": true,
-      "budgetStatus": "in-range",
+      "withinBudget": false,
+      "budgetStatus": "out-of-band",
       "components": {
         "CPU": {
           "candidateId": "cpu-5600",
@@ -142,17 +142,17 @@
           "usedFactor": 0.5
         },
         "GPU": {
-          "candidateId": "gpu-4060",
-          "name": "GeForce RTX 4060",
-          "low": 6525,
-          "high": 7212,
-          "matchedName": "Zotac ZT-40609-10L",
-          "sourceUrl": null,
-          "sourceName": "PCPartPicker USD fallback (\u00b15% estimate)",
+          "candidateId": "gpu-7900xt",
+          "name": "Radeon RX 7900 XT",
+          "low": 39114,
+          "high": 43232,
+          "matchedName": "Radeon RX 7900 XT",
+          "sourceUrl": "https://mdcomputers.in/product/graphics-card/radeon-graphics-card/radeon-rx-7000-graphics-card/sapphire-graphics-card-rx-7900-xt-21323-01-20g",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "used",
           "originalPriceINR": [
-            13049,
-            14423
+            78227,
+            86463
           ],
           "usedFactor": 0.5
         },
@@ -197,11 +197,11 @@
           "condition": "new"
         },
         "PSU": {
-          "candidateId": "psu-650-bronze",
-          "name": "650W 80+ Bronze PSU",
-          "low": 5224,
-          "high": 5774,
-          "matchedName": "Gigabyte P-B",
+          "candidateId": "psu-750-gold",
+          "name": "750W 80+ Gold PSU",
+          "low": 6924,
+          "high": 7654,
+          "matchedName": "Gigabyte P GM",
           "sourceUrl": null,
           "sourceName": "PCPartPicker India (\u00b15% estimate)",
           "condition": "new"
@@ -906,6 +906,7 @@
   },
   "unresolvedBuilds": [],
   "outOfBandBuilds": [
+    "80000",
     "150000",
     "275000",
     "330000",
