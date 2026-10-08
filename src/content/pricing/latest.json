@@ -6,7 +6,7 @@
     "fallbackRegion": "us",
     "usdToInr": 95
   },
-  "checkedAt": "2026-10-08T20:52:51+00:00",
+  "checkedAt": "2026-10-08T20:58:41+00:00",
   "builds": {
     "50000": {
       "budgetINR": 50000,
@@ -340,20 +340,20 @@
         170000
       ],
       "totalINR": [
-        180219,
-        199195
+        144537,
+        159757
       ],
-      "withinBudget": false,
-      "budgetStatus": "out-of-band",
+      "withinBudget": true,
+      "budgetStatus": "in-range",
       "components": {
         "CPU": {
           "candidateId": "cpu-7600",
           "name": "AMD Ryzen 5 7600",
-          "low": 44278,
-          "high": 48940,
-          "matchedName": "Intel Core i5-7600",
-          "sourceUrl": null,
-          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "low": 20899,
+          "high": 23099,
+          "matchedName": "AMD Ryzen 5 7600",
+          "sourceUrl": "https://getpc.co.in/parts/cpu/ryzen-5-7600",
+          "sourceName": "GetPC live retailer price",
           "condition": "new"
         },
         "GPU": {
@@ -367,12 +367,12 @@
           "condition": "new"
         },
         "Motherboard": {
-          "candidateId": "motherboard-x870",
-          "name": "X870 AM5 motherboard",
-          "low": 20710,
-          "high": 22890,
-          "matchedName": "X870 AM5 motherboard",
-          "sourceUrl": "https://mdcomputers.in/product/gigabyte-x870-gaming-wifi6-motherboard/motherboard/amd-chipset-motherboard/x870-motherboard",
+          "candidateId": "motherboard-b650",
+          "name": "B650 AM5 motherboard",
+          "low": 8407,
+          "high": 9293,
+          "matchedName": "B650 AM5 motherboard",
+          "sourceUrl": "https://mdcomputers.in/catalog/motherboard/amd-chipset-motherboard/b650-motherboard",
           "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
@@ -435,20 +435,20 @@
         220000
       ],
       "totalINR": [
-        184437,
-        203859
+        184808,
+        204268
       ],
       "withinBudget": true,
       "budgetStatus": "in-range",
       "components": {
         "CPU": {
-          "candidateId": "cpu-7600",
-          "name": "AMD Ryzen 5 7600",
-          "low": 44278,
-          "high": 48940,
-          "matchedName": "Intel Core i5-7600",
-          "sourceUrl": null,
-          "sourceName": "PCPartPicker India (\u00b15% estimate)",
+          "candidateId": "cpu-9800x3d",
+          "name": "AMD Ryzen 7 9800X3D",
+          "low": 44649,
+          "high": 49349,
+          "matchedName": "AMD Ryzen 7 9800X3D",
+          "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/",
+          "sourceName": "Manual user-supplied rough price (\u00b15% estimate)",
           "condition": "new"
         },
         "GPU": {
@@ -907,7 +907,6 @@
   "unresolvedBuilds": [],
   "outOfBandBuilds": [
     "80000",
-    "150000",
     "275000",
     "330000",
     "450000",

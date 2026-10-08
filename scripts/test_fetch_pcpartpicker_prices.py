@@ -30,6 +30,16 @@ class PricingUpdaterTests(unittest.TestCase):
         items = [{"model": "Ryzen 7 9800 X3D", "price": ["INR", "50000"]}]
         self.assertIsNotNone(candidate_price(candidate, items))
 
+    def test_amd_cpu_query_does_not_match_intel_same_number(self):
+        candidate = {"id": "cpu", "category": "CPU", "query": ["AMD", "7600"], "name": "AMD Ryzen 5 7600"}
+        items = [
+            {"brand": "Intel", "model": "Core i5-7600", "price": ["INR", "44000"]},
+            {"brand": "AMD", "model": "Ryzen 5 7600", "price": ["INR", "18000"]},
+        ]
+        match = candidate_price(candidate, items)
+        self.assertIsNotNone(match)
+        self.assertEqual(match["matchedName"], "AMD Ryzen 5 7600")
+
     def test_candidate_matching_keeps_gpu_suffixes_exact(self):
         candidate = {"id": "gpu", "query": ["RX", "7900", "XT"], "name": "Radeon RX 7900 XT"}
         items = [{"model": "Radeon RX 7900 XTX", "price": ["INR", "100000"]}]

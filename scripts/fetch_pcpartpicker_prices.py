@@ -31,6 +31,7 @@ CATEGORY_TYPES = {
     "CPU Cooler": "cpu-cooler",
 }
 VENDOR_QUERY_TERMS = {"amd", "intel", "nvidia", "geforce", "radeon", "rtx", "gtx", "rx"}
+CPU_VENDOR_CONFLICTS = {"amd": "intel", "intel": "amd"}
 
 
 def project_root() -> Path:
@@ -134,6 +135,10 @@ def candidate_price(candidate: dict[str, Any], items: list[dict[str, Any]], sour
     for item in items:
         text = item_text(item)
         tokens = text.split()
+        if candidate.get("category") == "CPU":
+            vendor_terms = {term for term in terms if term in CPU_VENDOR_CONFLICTS}
+            if any(CPU_VENDOR_CONFLICTS[term] in tokens for term in vendor_terms):
+                continue
         if not all(query_term_present(term, tokens, allow_numeric_suffix) for term in required_terms if term):
             continue
         matched = sum(1 for term in terms if term and query_term_present(term, tokens, allow_numeric_suffix))

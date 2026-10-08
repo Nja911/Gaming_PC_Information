@@ -41,7 +41,7 @@ function cpuFor(build: (typeof builds)[number]) {
 
 export default function HomePage() {
   const pricedBuilds = builds.map(resolveBuild);
-  const spendingBuilds = pricedBuilds.filter((_, index) => index !== 0 && index !== 2);
+  const spendingBuilds = pricedBuilds.filter((build) => !["50000", "100000", "450000"].includes(build.slug));
   const currentBuilds = pricedBuilds.filter((build) => build.hasLivePricing);
   const leadBuild = currentBuilds.find((build) => build.budget >= 200000) ?? currentBuilds.at(-1) ?? pricedBuilds[0];
   const secondaryBuilds = currentBuilds.filter((build) => build.slug !== leadBuild?.slug).slice(-2);

@@ -3,6 +3,7 @@
   "cpu-5600": { "priceINR": 13790, "sourceUrl": "https://microcenterindia.com/collections/amd-am4" },
   "cpu-5700x3d": { "priceINR": 21099, "sourceUrl": "https://elitehubs.com/collections/ryzen-5000-series-processor" },
   "cpu-9800x3d": { "priceINR": 46999, "sourceUrl": "https://varietyinfotech.com/product-tag/ryzen-7-9800x3d/" },
+  "cpu-7600": { "priceINR": 21999, "sourceName": "GetPC live retailer price", "sourceUrl": "https://getpc.co.in/parts/cpu/ryzen-5-7600" },
   "gpu-4070": { "priceINR": 112785, "sourceUrl": "https://gpuprix.com/zh/india/gpus/geforce-rtx-4070" },
   "gpu-4080": { "priceINR": 234262, "sourceUrl": "https://gpuprix.com/in/gpus/geforce-rtx-4080" },
   "gpu-4090": { "priceINR": 349999, "sourceUrl": "https://gpuprix.com/zh/india/gpus/geforce-rtx-4090" },
