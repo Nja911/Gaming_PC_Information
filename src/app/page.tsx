@@ -41,6 +41,7 @@ function cpuFor(build: (typeof builds)[number]) {
 
 export default function HomePage() {
   const pricedBuilds = builds.map(resolveBuild);
+  const spendingBuilds = pricedBuilds.filter((_, index) => index !== 0 && index !== 2);
   const currentBuilds = pricedBuilds.filter((build) => build.hasLivePricing);
   const leadBuild = currentBuilds.find((build) => build.budget >= 200000) ?? currentBuilds.at(-1) ?? pricedBuilds[0];
   const secondaryBuilds = currentBuilds.filter((build) => build.slug !== leadBuild?.slug).slice(-2);
@@ -70,7 +71,7 @@ export default function HomePage() {
           <p className="mt-7 max-w-xs text-sm leading-relaxed text-dim">Choose the budget first. Each row leads to a complete parts list with the trade-offs made visible.</p>
         </div>
         <div className="divide-y divide-line border-t border-line">
-          {pricedBuilds.map((build, index) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="index-row group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-2 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_10rem_auto] sm:gap-5">
+          {spendingBuilds.map((build, index) => <Link key={build.slug} href={`/gaming-pc/builds/${build.slug}`} className="index-row group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-2 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_10rem_auto] sm:gap-5">
             <span className="index-number font-mono text-xs text-dim">{String(index + 1).padStart(2, "0")}</span>
             <span className="min-w-0"><span className="block font-display text-3xl transition-colors group-hover:text-accent sm:text-5xl">{formatINRRange(build.budgetRange ?? [build.budget - 20000, build.budget + 20000])}</span><span className={`mt-1 block text-xs ${build.isOutOfBand ? "text-copper" : "text-dim"}`}>{build.hasLivePricing ? `Current parts: ${formatINRRange(build.currentTotalINR)}` : "Current parts check pending"}</span></span>
             <span className="hidden text-xs uppercase tracking-[.14em] text-dim sm:block">{build.targetResolutions?.join(" / ") ?? build.targetResolution}</span>
