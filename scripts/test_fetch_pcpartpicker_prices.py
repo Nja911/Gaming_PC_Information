@@ -124,6 +124,11 @@ class PricingUpdaterTests(unittest.TestCase):
             budget = int(build_id)
             self.assertEqual(config["budgetRangeINR"], [budget - 20000, budget + 20000])
 
+    def test_only_the_highest_route_allows_rtx_5090(self):
+        manifest = json.loads(Path(__file__).parents[1].joinpath("src/content/pricing/targets.json").read_text(encoding="utf-8"))
+        routes = [build_id for build_id, config in manifest["builds"].items() if "gpu-5090" in config["allowed"].get("GPU", [])]
+        self.assertEqual(routes, ["600000"])
+
     def test_failed_refresh_preserves_existing_snapshot(self):
         class BrokenAPI:
             def retrieve(self, *_args, **_kwargs):

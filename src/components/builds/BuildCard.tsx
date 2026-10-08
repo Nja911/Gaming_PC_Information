@@ -17,6 +17,7 @@ export default function BuildCard({ build }: { build: GamingPCBuild }) {
             {build.title.replace("Best Gaming PC Around ", "")}
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-dim">{gpu?.name}</p>
+          <p className={`mt-1 text-xs ${pricedBuild.isOutOfBand ? "text-copper" : "text-dim"}`}>{pricedBuild.hasLivePricing ? `Current parts: ${formatINRRange(pricedBuild.currentTotalINR)}` : "Current parts check pending"}</p>
         </div>
         <span className="readout whitespace-nowrap text-left text-xl text-accent sm:pt-1 sm:text-right">
           {formatINRRange(budgetRange)} <span className="text-sm" aria-hidden="true">↗</span>
